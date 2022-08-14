@@ -14,6 +14,9 @@ class ConversationsTest < ApplicationSystemTestCase
     visit conversations_url
     click_on "New conversation"
 
+    fill_in "Title", with: @conversation.title
+    fill_in "User a", with: @conversation.user_a_id
+    fill_in "User b", with: @conversation.user_b_id
     click_on "Create Conversation"
 
     assert_text "Conversation was successfully created"
@@ -24,6 +27,9 @@ class ConversationsTest < ApplicationSystemTestCase
     visit conversation_url(@conversation)
     click_on "Edit this conversation", match: :first
 
+    fill_in "Title", with: @conversation.title
+    fill_in "User a", with: @conversation.user_a_id
+    fill_in "User b", with: @conversation.user_b_id
     click_on "Update Conversation"
 
     assert_text "Conversation was successfully updated"

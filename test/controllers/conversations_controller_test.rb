@@ -17,7 +17,7 @@ class ConversationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create conversation" do
     assert_difference("Conversation.count") do
-      post conversations_url, params: { conversation: {  } }
+      post conversations_url, params: { conversation: { title: @conversation.title, user_a_id: @conversation.user_a_id, user_b_id: @conversation.user_b_id } }
     end
 
     assert_redirected_to conversation_url(Conversation.last)
@@ -34,7 +34,7 @@ class ConversationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update conversation" do
-    patch conversation_url(@conversation), params: { conversation: {  } }
+    patch conversation_url(@conversation), params: { conversation: { title: @conversation.title, user_a_id: @conversation.user_a_id, user_b_id: @conversation.user_b_id } }
     assert_redirected_to conversation_url(@conversation)
   end
 

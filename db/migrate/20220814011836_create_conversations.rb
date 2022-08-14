@@ -4,6 +4,7 @@ class CreateConversations < ActiveRecord::Migration[7.0]
       t.string :title
       t.integer :user_a_id
       t.integer :user_b_id
+
       t.timestamps
     end
   end

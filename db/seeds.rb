@@ -16,6 +16,8 @@ serje = User.create(name: "Serje", user_name: "serjeIsCool", email:"serje@serje.
 
 ryan_serje_conversation = Conversation.create(title: "Serje and Ryan chatroom", user_a_id: ryan.id, user_b_id: serje.id)
 
-testMessage = Message.create(content: "test Message", user_id: ryan.id, conversation_id: ryan_serje_conversation.id)
+ryanTestMessage = Message.create(content: "test message from Ryan", user_id: ryan.id, conversation_id: ryan_serje_conversation.id)
+
+serjeTestMessage = Message.create(content: "test message from Serje", user_id: serje.id, conversation_id: ryan_serje_conversation.id)
 
 
