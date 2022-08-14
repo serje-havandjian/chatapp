@@ -14,10 +14,9 @@ Message.destroy_all
 ryan = User.create(name: "Ryan", user_name: "ryanIsCool", email:"ryan@ryan.com")
 serje = User.create(name: "Serje", user_name: "serjeIsCool", email:"serje@serje.com")
 
-ryan_serje_conversation = Conversation.create(title: "Serje and Ryan chatroom", user_a_id: ryan.id, user_b_id: serje.id)
+ryan_serje_conversation = Conversation.create(title: "Serje and Ryan chatroom", user_a_id:ryan.id, user_b_id:serje.id)
 
 ryanTestMessage = Message.create(content: "test message from Ryan", user_id: ryan.id, conversation_id: ryan_serje_conversation.id)
-
 serjeTestMessage = Message.create(content: "test message from Serje", user_id: serje.id, conversation_id: ryan_serje_conversation.id)
 
 
