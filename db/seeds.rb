@@ -7,12 +7,12 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 
-User.destroy_all
-Conversation.destroy_all
-Message.destroy_all
+# User.destroy_all
+# Conversation.destroy_all
+# Message.destroy_all
 
-ryan = User.create(name: "Ryan", user_name: "ryanIsCool", email:"ryan@ryan.com")
-serje = User.create(name: "Serje", user_name: "serjeIsCool", email:"serje@serje.com")
+ryan = User.create(name: "Ryan", username: "theRyan", email:"ryan@ryan.com")
+serje = User.create(name: "Serje", username: "theSerj0", email:"serje@serje.com")
 
 ryan_serje_conversation = Conversation.create(title: "Serje and Ryan chatroom", user_a_id:ryan.id, user_b_id:serje.id)
 
