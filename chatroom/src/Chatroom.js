@@ -18,9 +18,7 @@ function Chatroom({user, setLoggedUser, setUser}){
 
     const [conversation, setConversation] = useState()
 
-    const [blah, setBlah] = useState()
-
-  
+    const [test, setTest] = useState()
 
 
   useEffect(()=>{
@@ -36,6 +34,9 @@ function Chatroom({user, setLoggedUser, setUser}){
   },[])
 
 
+  
+
+
 
   const displayAllUsers = allUsers.map((user)=>{
     return <p>{user.username}</p>
@@ -45,37 +46,38 @@ function Chatroom({user, setLoggedUser, setUser}){
     return <option value={user.id}> {user.username} </option>
   })
 
+  console.log(test)
 
  const displayChatrooms = chatrooms.map((chatroom)=>{
    return(
      <div>
-        <button onClick={showChatBetweenUsers} value={chatroom.id}> Chatroom Title:{chatroom.title}, a chatroom between {chatroom.user_a.name} {chatroom.user_b.name} </button> 
+        <button onClick={(e)=>{
+          fetch(`/conversations/${e.target.value}`)
+          .then(result => result.json())
+          .then(result => setConversation(result))
+
+          setChatroomId(e.target.value)
+
+          console.log(conversation)
+
+          const convoContent = conversation.messages.map((message)=>{
+            return message.content
+          })
+
+          setTest(convoContent)
+
+          console.log(test, "Convo Content")
+
+        }} 
+        value={chatroom.id}> Chatroom Title:{chatroom.title}, a chatroom between {chatroom.user_a.name} {chatroom.user_b.name} 
+        </button> 
      </div>
    ) 
  })
+ 
 
 
-  function showChatBetweenUsers(e){
-    setChatroomId(e.target.value)
 
-    
-    fetch(`/conversations/${chatroomId}`)
-    .then(result => result.json())
-    .then(result => setConversation(result))
-
-    console.log(conversation)
-
-       const test = conversation.messages.map((message)=>{
-        return <span>{message.content}</span>
-      })
-
-      console.log(test, "test")
-
-    setBlah(test)
-
-    console.log(blah)
-
-  } 
 
   function handleSetUserName(e){
     setSecondUser(e.target.value)
@@ -114,7 +116,6 @@ function Chatroom({user, setLoggedUser, setUser}){
   }
 
 
- 
 
 
   return (
@@ -138,11 +139,13 @@ function Chatroom({user, setLoggedUser, setUser}){
           <p>All Chatrooms</p>
           {displayChatrooms}
         </div>
-        <Conversation user={user} conversation={conversation} chatrooms={chatrooms} chatroomId={chatroomId}/>
+        <div>
+          {test === undefined ? null : test}
+        </div>
+        <Conversation key={chatroomId} user={user} conversation={conversation} chatrooms={chatrooms} chatroomId={chatroomId}/>
         <button onClick={handleLogoutClick}>
           Logout
         </button>
-
       </header>
     </div>
     

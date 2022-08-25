@@ -35,14 +35,14 @@ function Login({setUser}){
 
         <h2> Login </h2>
             <Form onSubmit={handleSubmit}>
-            <label htmlFor="username">Enter Name</label>
+            <label htmlFor="name">Enter Name</label>
               <Segment stacked>
               <Form.Input
                 fluid 
                 icon='user' 
                 iconPosition="left"
                 type="text"
-                id="username"
+                id="name"
                 autoComplete="off"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
