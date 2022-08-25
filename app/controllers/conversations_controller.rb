@@ -1,7 +1,8 @@
 class ConversationsController < ApplicationController
 
     def index
-        conversations = Conversation.all
+        user = User.find(session[:user_id])
+        conversations = user.conversations
         render json: conversations, status: :ok
     end
 
