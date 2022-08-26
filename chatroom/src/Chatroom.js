@@ -18,7 +18,9 @@ function Chatroom({user, setLoggedUser, setUser}){
 
     const [conversation, setConversation] = useState()
 
-    const [test, setTest] = useState()
+    const [displayConversation, setDisplayConversation] = useState()
+
+    const [displayDeleteButton, setDisplayDeleteButton] = useState(false)
 
 
   useEffect(()=>{
@@ -46,7 +48,7 @@ function Chatroom({user, setLoggedUser, setUser}){
     return <option value={user.id}> {user.username} </option>
   })
 
-  console.log(test)
+  console.log(displayConversation)
 
  const displayChatrooms = chatrooms.map((chatroom)=>{
    return(
@@ -64,9 +66,9 @@ function Chatroom({user, setLoggedUser, setUser}){
             return message.content
           })
 
-          setTest(convoContent)
+          setDisplayConversation(convoContent)
 
-          console.log(test, "Convo Content")
+          setDisplayDeleteButton(!displayDeleteButton)
 
         }} 
         value={chatroom.id}> Chatroom Title:{chatroom.title}, a chatroom between {chatroom.user_a.name} {chatroom.user_b.name} 
@@ -115,6 +117,12 @@ function Chatroom({user, setLoggedUser, setUser}){
 
   }
 
+  function handleDeleteConversation(){
+    fetch(`conversations/${chatroomId}`, {
+            method: "DELETE"
+        })
+  }
+
 
 
 
@@ -140,7 +148,8 @@ function Chatroom({user, setLoggedUser, setUser}){
           {displayChatrooms}
         </div>
         <div>
-          {test === undefined ? null : test}
+          {displayConversation === undefined ? null : displayConversation}
+          {displayDeleteButton === true ? <button onClick={handleDeleteConversation}> Delete Conversation</button> : null }
         </div>
         <Conversation key={chatroomId} user={user} conversation={conversation} chatrooms={chatrooms} chatroomId={chatroomId}/>
         <button onClick={handleLogoutClick}>
