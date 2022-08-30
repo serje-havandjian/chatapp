@@ -1,10 +1,17 @@
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect, useRef} from "react"
+import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import Conversation from "./Conversation";
-
+import {createConsumer} from "@rails/actioncable"
+import { Consumer } from "react";
+import Cable from "actioncable"
+import ActionCable from "actioncable"
 
 
 function Chatroom({user, setLoggedUser, setUser}){
+
+  console.log("Chatroom is called")
+
     const history = useHistory()
 
     const [allUsers, setAllUsers] = useState([])
@@ -22,22 +29,58 @@ function Chatroom({user, setLoggedUser, setUser}){
 
     const [displayDeleteButton, setDisplayDeleteButton] = useState(false)
 
+    const [newMessage, setNewMessage] = useState()
+    
+    const params = useParams()
+
+    console.log("params has been set", params)
 
   useEffect(()=>{
     fetch("/users")
     .then(result => result.json())
     .then(result => setAllUsers(result))
+    .then(result => console.log("users"))
   },[])
 
   useEffect(()=>{
     fetch("/conversations")
     .then(result => result.json())
     .then(result => setChatrooms(result))
+    .then(result => console.log("conversations"))
   },[])
 
+  useEffect(()=>{
 
-  
+    const cable = createConsumer("ws://localhost:3000/cable")
+    
+    console.log("logging params here", params)
 
+    const paramsToSend={
+      channel: "ConversationChannel",
+      id: params.id
+    }
+
+    const handlers = {
+      received(data){
+        setNewMessage([...newMessage, data])
+      },
+
+      connected(){
+        console.log("connected")
+      },
+
+      disconnected(){
+        console.log("disconnected")
+      }
+    }
+    const subscription = cable.subscriptions.create(paramsToSend, handlers)
+
+    return function cleanup(){
+      console.log("unsubbing from", params.id)
+      subscription.unsubscribe()
+    }
+
+  }, [params.id, newMessage])
 
 
   const displayAllUsers = allUsers.map((user)=>{
@@ -48,29 +91,40 @@ function Chatroom({user, setLoggedUser, setUser}){
     return <option value={user.id}> {user.username} </option>
   })
 
-  console.log(displayConversation)
+
+let showConversation
+
+   async function handleSetConversation(e){
+
+    const getFetch = await fetch(`/conversations/${e.target.value}`).then(response => response.json())
+
+    console.log(getFetch)
+
+    showConversation = getFetch.messages.map((message)=>{
+      return message.content
+    })
+
+    setDisplayConversation(showConversation)
+
+    console.log(displayConversation)
+
+    setDisplayDeleteButton(!displayDeleteButton)
+  }
+  
+  console.log(showConversation)
+
+
+
 
  const displayChatrooms = chatrooms.map((chatroom)=>{
    return(
      <div>
-        <button onClick={(e)=>{
-          fetch(`/conversations/${e.target.value}`)
-          .then(result => result.json())
-          .then(result => setConversation(result))
-
-          setChatroomId(e.target.value)
-
-          console.log(conversation)
-
-          const convoContent = conversation.messages.map((message)=>{
-            return message.content
-          })
-
-          setDisplayConversation(convoContent)
-
-          setDisplayDeleteButton(!displayDeleteButton)
-
-        }} 
+        <button onClick={handleSetConversation}
+        
+       
+          
+       
+       
         value={chatroom.id}> Chatroom Title:{chatroom.title}, a chatroom between {chatroom.user_a.name} {chatroom.user_b.name} 
         </button> 
      </div>
@@ -148,10 +202,14 @@ function Chatroom({user, setLoggedUser, setUser}){
           {displayChatrooms}
         </div>
         <div>
-          {displayConversation === undefined ? null : displayConversation}
-          {displayDeleteButton === true ? <button onClick={handleDeleteConversation}> Delete Conversation</button> : null }
+          {displayDeleteButton === true ? <div> {displayConversation} <button onClick={handleDeleteConversation}> Delete Conversation</button> </div>: null }
         </div>
-        <Conversation key={chatroomId} user={user} conversation={conversation} chatrooms={chatrooms} chatroomId={chatroomId}/>
+
+        <div>
+          <h1>MESSAGES</h1>
+          {newMessage}
+        </div>
+        <Conversation user={user} conversation={conversation} newMessage={newMessage} setNewMessage={setNewMessage}/>
         <button onClick={handleLogoutClick}>
           Logout
         </button>

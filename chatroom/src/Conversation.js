@@ -1,27 +1,7 @@
-import { useState, useEffect } from "react"
+function Conversation({conversation, user, newMessage, setNewMessage}){
 
-
-function Conversation({conversation, user, chatrooms, chatroomId, key}){
-
-    const [newMessage, setNewMessage] = useState()
-
-    const [fuck, setFuck ] = useState([])
-
-    useEffect(()=>{
-        fetch(`/conversations/${chatroomId}`)
-        .then(result => result.json())
-        .then(result => setFuck(result))
-      },[])
-    
-
-
-    console.log(conversation, "conversation")
-
-    console.log(chatroomId, "chatroomId")
-
-    
- 
-
+  console.log(newMessage)
+  console.log(user.id)
 
     function handleNewMessage(e){
         setNewMessage(e.target.value)
@@ -34,17 +14,14 @@ function Conversation({conversation, user, chatrooms, chatroomId, key}){
                     user_id: user.id,
                     conversation_id: conversation.id
                 }
-
           fetch("/messages", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(newMessageObject)
-          })
+          })       
     }
-
-   
 
     return (
         <div id="message-container">

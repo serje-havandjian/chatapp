@@ -8,7 +8,7 @@ class ConversationsController < ApplicationController
 
     def show
         oneConversation = Conversation.find(params[:id])
-        render json: oneConversation, include: :messages, status: :ok
+        render json: oneConversation, status: :ok
     end
 
     def create
