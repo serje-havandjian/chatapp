@@ -1,18 +1,16 @@
 import React, {useState, useEffect, useRef} from "react"
-import { useParams } from "react-router-dom";
+import { useParams, Route, Link, Routes } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import Conversation from "./Conversation";
 import {createConsumer} from "@rails/actioncable"
-import { Consumer } from "react";
-import Cable from "actioncable"
-import ActionCable from "actioncable"
+
 
 
 function Chatroom({user, setLoggedUser, setUser}){
 
   console.log("Chatroom is called")
 
-    const history = useHistory()
+    // const history = useHistory()
 
     const [allUsers, setAllUsers] = useState([])
 
@@ -92,26 +90,20 @@ function Chatroom({user, setLoggedUser, setUser}){
   })
 
 
-let showConversation
-
    async function handleSetConversation(e){
 
     const getFetch = await fetch(`/conversations/${e.target.value}`).then(response => response.json())
 
-    console.log(getFetch)
-
-    showConversation = getFetch.messages.map((message)=>{
+    let showConversation = getFetch.messages.map((message)=>{
       return message.content
     })
 
     setDisplayConversation(showConversation)
-
-    console.log(displayConversation)
-
+    setConversation(getFetch)
+    setChatroomId(e.target.value)
     setDisplayDeleteButton(!displayDeleteButton)
   }
   
-  console.log(showConversation)
 
 
 
@@ -119,14 +111,8 @@ let showConversation
  const displayChatrooms = chatrooms.map((chatroom)=>{
    return(
      <div>
-        <button onClick={handleSetConversation}
-        
-       
-          
-       
-       
-        value={chatroom.id}> Chatroom Title:{chatroom.title}, a chatroom between {chatroom.user_a.name} {chatroom.user_b.name} 
-        </button> 
+          <button onClick={handleSetConversation} value={chatroom.id}> Chatroom Title:{chatroom.title}, a chatroom between {chatroom.user_a.name} {chatroom.user_b.name} 
+          </button> 
      </div>
    ) 
  })
@@ -143,7 +129,7 @@ let showConversation
     fetch("/logout", { method: "DELETE" }).then((r) => {
       if (r.ok) {
         setUser(null);
-        history.push("/login")
+        // history.push("/login")
       }
     });
   }
@@ -202,14 +188,20 @@ let showConversation
           {displayChatrooms}
         </div>
         <div>
-          {displayDeleteButton === true ? <div> {displayConversation} <button onClick={handleDeleteConversation}> Delete Conversation</button> </div>: null }
+          {displayDeleteButton === true ? 
+          <div> {displayConversation} 
+          <button onClick={handleDeleteConversation}> Delete Conversation </button> 
+          <Routes>
+          <Route Route path="/conversation" element={<Conversation user={user} conversation={conversation} newMessage={newMessage} setNewMessage={setNewMessage} setConversation={setConversation}  />} />
+        </Routes>
+          </div> 
+          : null }
         </div>
 
         <div>
           <h1>MESSAGES</h1>
           {newMessage}
         </div>
-        <Conversation user={user} conversation={conversation} newMessage={newMessage} setNewMessage={setNewMessage}/>
         <button onClick={handleLogoutClick}>
           Logout
         </button>

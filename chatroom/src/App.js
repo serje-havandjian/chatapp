@@ -1,11 +1,16 @@
 import React, {useState, useEffect} from "react"
-import {Route, Switch} from "react-router-dom"
+import {Route, Switch, useParams, Routes, BrowserRouter as Router} from "react-router-dom"
 import './App.css';
 import Chatroom from "./Chatroom";
 import SignUp from "./SignUp";
 import Login from "./Login";
+import Conversation from "./Conversation";
 
 function App() {
+
+  const params = useParams()
+
+  console.log(params)
 
   const [ user, setUser ] = useState(null);
 
@@ -24,20 +29,28 @@ function App() {
   return(
     <>
     {user ? (
-      <Switch>
-        <Route exact path ="/">
-          <Chatroom user={user} setUser={setUser}></Chatroom>
-        </Route>
-      </Switch>
+    <Router>
+          <Routes>
+            <Route path ="/" element={<Chatroom />} />
+              {/* <Chatroom user={user} setUser={setUser}></Chatroom> */}
+            
+            <Route path="/conversation" element={<Conversation />} />
+            {/* <Conversation /> */}
+         
+          </Routes>
+       
+      </Router>
       ) : (
-        <Switch>
-          <Route exact path="/signup">
-            <SignUp setUser = {setUser} />
-          </Route>
-          <Route>
-            <Login setUser= {setUser} />
-          </Route>
-        </Switch>
+        <Router>
+          <Routes>
+            <Route path="/signup" element={<SignUp />} />
+              {/* <SignUp setUser = {setUser} /> */}
+
+            <Route path="/login" element={<Login setUser={setUser} />}>
+              {/* <Login setUser= {setUser} /> */}
+            </Route>
+          </Routes>
+        </Router>
       )
   }
     

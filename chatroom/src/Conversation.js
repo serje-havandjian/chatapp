@@ -1,7 +1,8 @@
-function Conversation({conversation, user, newMessage, setNewMessage}){
+import { useParams } from "react-router-dom"
 
-  console.log(newMessage)
-  console.log(user.id)
+function Conversation({conversation, user, newMessage, setNewMessage, setConversation}){
+
+ 
 
     function handleNewMessage(e){
         setNewMessage(e.target.value)
@@ -20,7 +21,7 @@ function Conversation({conversation, user, newMessage, setNewMessage}){
               "Content-Type": "application/json",
             },
             body: JSON.stringify(newMessageObject)
-          })       
+          }).then(response => response.json()).then(response => setConversation(response))    
     }
 
     return (
