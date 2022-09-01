@@ -3,7 +3,7 @@
 class ConversationChannel < ApplicationCable::Channel
   def subscribed
     conversation = Conversation.find(params[:id])
-    stream_from "conversation"
+    stream_for "conversation"
     # stream_from "some_channel"
   end
 

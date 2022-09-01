@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from "react"
 import { useParams, Route, Link, Routes } from "react-router-dom";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Conversation from "./Conversation";
 import {createConsumer} from "@rails/actioncable"
 
@@ -10,7 +10,7 @@ function Chatroom({user, setLoggedUser, setUser}){
 
   console.log("Chatroom is called")
 
-    // const history = useHistory()
+    const navigate = useNavigate()
 
     const [allUsers, setAllUsers] = useState([])
 
@@ -37,49 +37,14 @@ function Chatroom({user, setLoggedUser, setUser}){
     fetch("/users")
     .then(result => result.json())
     .then(result => setAllUsers(result))
-    .then(result => console.log("users"))
+
   },[])
 
   useEffect(()=>{
     fetch("/conversations")
     .then(result => result.json())
     .then(result => setChatrooms(result))
-    .then(result => console.log("conversations"))
   },[])
-
-  useEffect(()=>{
-
-    const cable = createConsumer("ws://localhost:3000/cable")
-    
-    console.log("logging params here", params)
-
-    const paramsToSend={
-      channel: "ConversationChannel",
-      id: params.id
-    }
-
-    const handlers = {
-      received(data){
-        setNewMessage([...newMessage, data])
-      },
-
-      connected(){
-        console.log("connected")
-      },
-
-      disconnected(){
-        console.log("disconnected")
-      }
-    }
-    const subscription = cable.subscriptions.create(paramsToSend, handlers)
-
-    return function cleanup(){
-      console.log("unsubbing from", params.id)
-      subscription.unsubscribe()
-    }
-
-  }, [params.id, newMessage])
-
 
   const displayAllUsers = allUsers.map((user)=>{
     return <p>{user.username}</p>
@@ -102,6 +67,9 @@ function Chatroom({user, setLoggedUser, setUser}){
     setConversation(getFetch)
     setChatroomId(e.target.value)
     setDisplayDeleteButton(!displayDeleteButton)
+
+    navigate(`/conversations/${e.target.value}`)   
+
   }
   
 
@@ -129,7 +97,7 @@ function Chatroom({user, setLoggedUser, setUser}){
     fetch("/logout", { method: "DELETE" }).then((r) => {
       if (r.ok) {
         setUser(null);
-        // history.push("/login")
+        navigate("/login")
       }
     });
   }
@@ -191,9 +159,15 @@ function Chatroom({user, setLoggedUser, setUser}){
           {displayDeleteButton === true ? 
           <div> {displayConversation} 
           <button onClick={handleDeleteConversation}> Delete Conversation </button> 
-          <Routes>
-          <Route Route path="/conversation" element={<Conversation user={user} conversation={conversation} newMessage={newMessage} setNewMessage={setNewMessage} setConversation={setConversation}  />} />
-        </Routes>
+          
+          {/* <Routes>
+            <Route element={<Conversation user={user} conversation={conversation} newMessage={newMessage} setNewMessage={setNewMessage} setConversation={setConversation} />} />
+          </Routes> */}
+
+          {/* <Conversation user={user} conversation={conversation} newMessage={newMessage} setNewMessage={setNewMessage} setConversation={setConversation} /> */}
+          
+          
+        
           </div> 
           : null }
         </div>

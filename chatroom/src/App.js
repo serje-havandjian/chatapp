@@ -5,12 +5,13 @@ import Chatroom from "./Chatroom";
 import SignUp from "./SignUp";
 import Login from "./Login";
 import Conversation from "./Conversation";
+import Essen from "./Essen";
 
 function App() {
 
   const params = useParams()
 
-  console.log(params)
+  console.log(params, "Params in App page")
 
   const [ user, setUser ] = useState(null);
 
@@ -31,22 +32,20 @@ function App() {
     {user ? (
     <Router>
           <Routes>
-            <Route path ="/" element={<Chatroom />} />
-              {/* <Chatroom user={user} setUser={setUser}></Chatroom> */}
-            
-            <Route path="/conversation" element={<Conversation />} />
-            {/* <Conversation /> */}
-         
+            <Route path ="/Chatroom/" element={<Chatroom user={user} setUser={setUser} />} /> 
+            <Route path="/Conversations/:id" element={<Conversation />} />
+
+            {/* <Route path="/" element={<Essen />} />  */}
           </Routes>
        
       </Router>
       ) : (
         <Router>
           <Routes>
-            <Route path="/signup" element={<SignUp />} />
+            <Route path="signup" element={<SignUp />} />
               {/* <SignUp setUser = {setUser} /> */}
 
-            <Route path="/login" element={<Login setUser={setUser} />}>
+            <Route path="login" element={<Login setUser={setUser} />}>
               {/* <Login setUser= {setUser} /> */}
             </Route>
           </Routes>

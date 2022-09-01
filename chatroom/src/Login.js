@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
 
 function Login({setUser}){
@@ -9,7 +9,7 @@ function Login({setUser}){
     const [ password, setPassword ] = useState("");
 
 
-    const history = useHistory()
+   const navigate = useNavigate()
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -22,7 +22,7 @@ function Login({setUser}){
         }).then((r) => {
           if (r.ok) {
             r.json().then((user) => setUser(user));
-            history.push("/")
+            navigate("/")
           }
         });
     }
