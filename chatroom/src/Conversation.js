@@ -4,12 +4,33 @@ import {createConsumer} from "@rails/actioncable"
 
 function Conversation(){
 
+  const [displayChatsInConversation, setDisplayChatsInConversation ] = useState([])
+  
   const params = useParams()
   
-//   console.log(params.id)
+  console.log(params.id)
+
+  useEffect(()=>{
+    (async() => {
+      const jsonMessages = await fetch(`/conversations/${params.id}`)
+      .then(result => result.json())
+      console.log(jsonMessages)
+      const test = jsonMessages.messages.map((message)=>{
+        return <p>{message.content}</p>
+      })
+      setDisplayChatsInConversation(test)
+    })()
+
+    
+  }, [])
+  
+    
 
   return(
+    <>
     <p> Hello World</p>
+    <p>{displayChatsInConversation}</p>
+    </>
   )
 }
 
