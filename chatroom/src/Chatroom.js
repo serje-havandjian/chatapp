@@ -28,10 +28,15 @@ function Chatroom({user, setLoggedUser, setUser}){
     const [displayDeleteButton, setDisplayDeleteButton] = useState(false)
 
     const [newMessage, setNewMessage] = useState()
+
+    const [displayChatsInConversation, setDisplayChatsInConversation ] = useState([])
     
     const params = useParams()
 
     console.log("params has been set", params)
+
+   
+
 
   useEffect(()=>{
     fetch("/users")
@@ -57,6 +62,8 @@ function Chatroom({user, setLoggedUser, setUser}){
 
    async function handleSetConversation(e){
 
+    console.log(e)
+
     const getFetch = await fetch(`/conversations/${e.target.value}`).then(response => response.json())
 
     let showConversation = getFetch.messages.map((message)=>{
@@ -72,8 +79,6 @@ function Chatroom({user, setLoggedUser, setUser}){
 
   }
   
-
-
 
 
  const displayChatrooms = chatrooms.map((chatroom)=>{
@@ -164,7 +169,7 @@ function Chatroom({user, setLoggedUser, setUser}){
             <Route element={<Conversation user={user} conversation={conversation} newMessage={newMessage} setNewMessage={setNewMessage} setConversation={setConversation} />} />
           </Routes> */}
 
-          {/* <Conversation user={user} conversation={conversation} newMessage={newMessage} setNewMessage={setNewMessage} setConversation={setConversation} /> */}
+          <Conversation user={user} conversation={conversation} newMessage={newMessage} setNewMessage={setNewMessage} setConversation={setConversation} displayConversation={displayConversation} chatroomId={chatroomId} />
           
           
         

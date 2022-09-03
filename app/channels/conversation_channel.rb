@@ -1,4 +1,5 @@
 
+ mount ActionCable.server => "/cable"
 
 class ConversationChannel < ApplicationCable::Channel
   def subscribed

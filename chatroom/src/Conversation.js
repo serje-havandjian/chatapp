@@ -1,46 +1,87 @@
-import { useEffect } from "react"
+import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import {createConsumer} from "@rails/actioncable"
 
-function Conversation({conversation, user, newMessage, setNewMessage, setConversation}){
+// function Conversation(){
 
+//   const params = useParams()
+  
+//   console.log(params.id)
+
+//   return(
+//     <p> Hello World</p>
+//   )
+// }
+
+// export default Conversation
+
+function Conversation({conversation, user, newMessage, setNewMessage, setConversation, chatroomId}){
+
+  const [displayChatsInConversation, setDisplayChatsInConversation ] = useState([])
+  
   const params = useParams()
   
-
+  console.log(params.id)
   
   useEffect(()=>{
-    // STUPID ACTION CABLE STUFF
-    const cable = createConsumer("ws://localhost:3000/cable")
+    console.log("inside useEffect")
+    const fetchData = async () =>{
+      console.log("inside conversation useEffect fetch Data Function")
+      const data = await fetch(`/conversations/${params.id}`)
+      .then(result =>result.json())
+      .then((result) => setDisplayChatsInConversation(result))
+      .then((result) => {
+        console.log("in fetchData block", displayChatsInConversation)
+      })
+    }
+
+    fetchData()
+
+    console.log(displayChatsInConversation)
+  },[])
+
+  console.log(displayChatsInConversation)
+
+  // const showConversation = displayChatsInConversation.messages.map((message)=>{
+  //   return message.content
+  // })
+  
+ 
+
+
+  //  // STUPID ACTION CABLE STUFF
+  // useEffect(()=>{
+  //   const cable = createConsumer("ws://localhost:3000/cable")
               
-    console.log("logging params here", params)
+  //   console.log("logging params here", params)
 
-    const paramsToSend={
-      channel: "ConversationChannel",
-      id: params.id
-    }
+  //   const paramsToSend={
+  //     channel: "ConversationChannel",
+  //     id: params.id
+  //   }
 
-    console.log(paramsToSend)
+  //   console.log(paramsToSend)
 
-    const handlers = {
-      received(data){
-        setNewMessage([...newMessage, data])
-      },
+  //   const handlers = {
+  //     received(data){
+  //       setNewMessage([...newMessage, data])
+  //     },
 
-      connected(){
-        console.log("connected")
-      },
+  //     connected(){
+  //       console.log("connected")
+  //     },
 
-      disconnected(){
-        console.log("disconnected")
-      }
-    }
-    const subscription = cable.subscriptions.create(paramsToSend, handlers)
+  //     disconnected(){
+  //       console.log("disconnected")
+  //     }
+  //   }
+  //   const subscription = cable.subscriptions.create(paramsToSend, handlers)
 
-    return function cleanup(){
-      console.log("unsubbing from", params.id)
-      subscription.unsubscribe()
-    }
-  }, [params.id, newMessage])
+  //   return function cleanup(){
+  //     console.log("unsubbing from", params.id)
+  //     subscription.unsubscribe()
+  //   }
+  // }, [params.id, newMessage])
     
 
 
@@ -67,6 +108,7 @@ function Conversation({conversation, user, newMessage, setNewMessage, setConvers
 
     return (
         <div id="message-container">
+          {/* <p>{showConversation}</p> */}
           <p> Chat Here </p>
             <form id="send-container" onSubmit={createMessage}>
               <input type="text" id="message-input" onChange={handleNewMessage} value={newMessage} />
