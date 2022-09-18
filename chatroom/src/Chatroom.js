@@ -3,6 +3,8 @@ import { useParams, Route, Link, Routes } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Conversation from "./Conversation";
 import {createConsumer} from "@rails/actioncable"
+import Cable from "actioncable"
+import ActionCable from "actioncable"
 
 
 
@@ -36,8 +38,6 @@ function Chatroom({user, setLoggedUser, setUser}){
     console.log("params has been set", params)
 
    
-
-
   useEffect(()=>{
     fetch("/users")
     .then(result => result.json())
