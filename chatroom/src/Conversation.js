@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 // import {createConsumer} from "@rails/actioncable"
 import Cable from "actioncable"
 import ActionCable from "actioncable"
+import Message from "./Message"
 
 
 
@@ -35,6 +36,7 @@ function Conversation({user}){
   const [displayChatsInConversation, setDisplayChatsInConversation ] = useState([])
   const [message, setMessage] = useState([])
   const [newMessage, setNewMessage] = useState()
+  const [showMessage, setShowMessage] = useState ({})
   
   const params = useParams()
 
@@ -46,18 +48,17 @@ function Conversation({user}){
   
   const { chatroom, chatConnection } = state
 
-  console.log(chatroom)
-  console.log(message)
-
+  
 
 
   useEffect(()=>{
+
     function createSocket(){
       
       if(chatConnection.consumer){
         chatConnection.unsubscribe()
       }
-      const consumer = Cable.createConsumer(`ws://${window.location.hostname}:3000/cable`)
+      const consumer = Cable.createConsumer(`ws://localhost:3000/cable`)
       const subscription = consumer.subscriptions.create(
         {
           channel: "ConversationChannel",
@@ -152,24 +153,17 @@ function Conversation({user}){
   };
 
 
-
-
-  const test = chatroom.messages.map((message)=>{
-     return message.content
-  })
-
-  console.log(test)
-
-
-
-
-
+  
   return(
     <>
     <div>{displayChatsInConversation}</div>
       <div id="message-container">
            <p> Chat Here </p>
-           <p>{test}</p>
+           <div>
+           
+           </div>
+           {chatroom.title ? (<Message chatroom = {chatroom} /> ) : null }
+          
              <form id="send-container" onSubmit={createMessage}>
                <input type="text" id="message-input" onChange={handleNewMessageContent} />
                <button type="submit" id="send-button">Send</button>

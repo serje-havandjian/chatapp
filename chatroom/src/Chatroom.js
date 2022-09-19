@@ -74,8 +74,10 @@ function Chatroom({user, setLoggedUser, setUser}){
     setDisplayDeleteButton(!displayDeleteButton)
 
     navigate(`/conversations/${e.target.value}`)   
+    
 
   }
+
   
 
 
