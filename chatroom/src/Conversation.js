@@ -1,40 +1,26 @@
 import { useState, useEffect, useReducer } from "react"
 import { useParams } from "react-router-dom"
-import {createConsumer} from "@rails/actioncable"
+// import {createConsumer} from "@rails/actioncable"
 import Cable from "actioncable"
 import ActionCable from "actioncable"
 
 
-function reducer(state, action){
-  switch(action.type){
-    case "fetchSuccess":{
-      return {...state, chatroom: action.payload, errors:[]}
+
+function reducer(state, action) {
+  switch(action.type) {
+    case 'fetchSuccess': {
+      return { ...state, chatroom: action.payload, errors: []}
     }
-    case "fetchError" : {
-      return {...state, errors: action.payload}
+    case 'fetchFailure': {
+      return { ...state, errors: action.payload }
     }
-    case "messageNew" :{
-      const updatedChatroom = {...state.chatroom}
-      updatedChatroom.messages = [...state.chatroom.messages, action.payload]
-      return {...state, chatroom: updatedChatroom}
-    }
-    case 'messageEdit': {
+    case 'messageNew': {
       const updatedChatroom = { ...state.chatroom }
-      updatedChatroom.messages = updatedChatroom.messages.map(message => {
-        if (message.id === action.payload.id) {
-          return action.payload;
-        }
-        return message;
-      })
+      updatedChatroom.messages = [ ...state.chatroom.messages, action.payload ]
       return { ...state, chatroom: updatedChatroom }
     }
-    case 'messageDelete': {
-      const updatedChatroom = { ...state.chatroom }
-      updatedChatroom.messages = updatedChatroom.messages.filter(message => message.id !== action.payload.id)
-      return { ...state, chatroom: updatedChatroom }
-    }
-    case "chatConnection" : {
-      return {...state, chatConnection: action.payload}
+    case 'chatConnection': {
+      return { ...state, chatConnection: action.payload}
     }
     default: {
       return state
@@ -57,115 +43,25 @@ function Conversation({user}){
     errors: [],
     chatConnection: {}
   })
-  const {chatroom, errors, chatConnection} = state
+  
+  const { chatroom, chatConnection } = state
 
-  useEffect(()=>{
-    (async () =>{
-      await fetch(`/conversations/${params.id}`)
-      .then(result => result.json())
-      .then(result => {
-        const convoMessage = result.messages.map((message)=>{
-          return <p>{message.content}</p>
-        })
-        setDisplayChatsInConversation(convoMessage)
-
-        if (result.ok) {
-          result.json().then(data =>{
-            dispatch({ type: "fetchSuccess", payload: data})
-          })
-        }else{
-          result.json().then(e =>{
-            dispatch({ type: "fetchFailure", payload: e.errors})
-          })
-        }
-      })
-    })()
-  }, [`${params.id}`])
+  console.log(chatroom)
+  console.log(message)
 
 
 
-
-
-  function handleMessageNew(message) {
-    // dispatch({ type: 'messageNew', payload: message})
-  }
-  function handleMessageEdit(messageEdit) {
-    dispatch({ type: 'messageEdit', payload: messageEdit })
-  }
-  function handleMessageDelete(deletedMessage) {
-    dispatch({ type: 'messageDelete', payload: deletedMessage })
-  }
-
-
-
-
- 
-
-  // useEffect(()=>{
-  //   (async() => {
-  //     const jsonMessages = await fetch(`/conversations/${params.id}`)
-  //     .then(result => result.json())
-  //     console.log(jsonMessages)
-  //     const convoMessage = jsonMessages.messages.map((message)=>{
-  //       return <p>{message.content}</p>
-  //     })
-  //     setDisplayChatsInConversation(convoMessage)
-  //   })()
-  // }, [])
-
-
-  function handleNewMessageContent(e){
-    setNewMessage(e.target.value)
-    }
-    
-     function createMessage(e){
-      e.preventDefault()
-      // const newMessageObject ={
-      //         content: newMessage,
-      //         user_id: user.id,
-      //         conversation_id: params.id
-      //         };
-          
-      fetch("/messages", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          content: newMessage,
-          conversation_id: params.id,
-          user_id: user.id
-        })
-      }).then(r =>{
-          if(r.ok){
-            r.json().then(message =>{
-              handleMessageNew(message)
-              setMessage(() => "")
-            })
-          }
-        })
-      
-    
-    };
-
-
-
-
-
-
-
-
-
-
-
-    // Action Cable Stuff
   useEffect(()=>{
     function createSocket(){
+      
+      if(chatConnection.consumer){
+        chatConnection.unsubscribe()
+      }
       const consumer = Cable.createConsumer(`ws://${window.location.hostname}:3000/cable`)
       const subscription = consumer.subscriptions.create(
         {
           channel: "ConversationChannel",
-          room: chatroom.name
+          room: chatroom.title
         },
         {
           received: (message) => {
@@ -175,55 +71,105 @@ function Conversation({user}){
       )
       dispatch({ type: "chatConnection", payload: subscription})
     }
-    if(chatroom.name){
+    
+    if (chatroom.title){
       createSocket()
     }
-  }, [chatroom.name, chatroom.id])
+  }, [chatroom.title, chatroom.id])
 
-  //   const cable = createConsumer("ws://localhost:3000/cable")
-
-  //   console.log(cable)
-              
-  //   console.log("logging params here", params)
-
-  //   const paramsToSend={
-  //     channel: "ConversationChannel",
-  //     id: params.id
-  //   }
-
-  //   console.log(paramsToSend)
+  useEffect(()=>{
     
+      fetch(`/conversations/${params.id}`)
+      .then(r => {
+        if(r.ok){
+          r.json().then(data =>{
+            dispatch({type: "fetchSuccess", payload: data})
+          })
+        }
+      }) ////
+      // .then(result => result.json())
+      // .then(result => {
+      //   dispatch({ type: "fetchSuccess", payload: result})
+      //   const convoMessage = result.messages.map((message)=>{
+      //     return <p>{message.content}</p>
+      //   })
+      //   setDisplayChatsInConversation(convoMessage)
+      // })
 
-  //   const handlers = {
-  //     received(data){
-  //       setMessage([...message, data])
-  //       console.log(data)
-  //     },
+  }, [params.id])
 
-  //     connected(){
-  //       console.log("connected")
-  //     },
 
-  //     disconnected(){
-  //       console.log("disconnected")
-  //     }
-  //   }
-  //   const subscription = cable.subscriptions.create(paramsToSend, handlers)
+  function handleMessageNew(message) {
+    console.log(message)
+    console.log(params)
+    chatConnection.send({ message: { content: message, conversation_id: chatroom.id } })
+  }
 
-  //   return function cleanup(){
-  //     console.log("unsubbing from", params.id)
-  //     subscription.unsubscribe()
-  //   }
-  // }, [params.id, message])
+
+
+
+
+ 
+
+
+
+  function handleNewMessageContent(e){
+    setMessage(e.target.value)
+  }
   
-  //   console.log(message)
+  function createMessage(e){
+    e.preventDefault()
+    handleMessageNew(message)
+    setMessage(() => "")
+
+    console.log(message)
+
+    
+    // const newMessageObject ={
+    //         content: newMessage,
+    //         user_id: user.id,
+    //         conversation_id: params.id
+    //         };
+        
+    fetch("/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        content: newMessage,
+        conversation_id: params.id,
+        user_id: user.id
+      })
+    }).then(r =>{
+        if(r.ok){
+          r.json().then(message =>{
+            handleMessageNew(message)
+            setMessage(() => "")
+          })
+        }
+      })
+  };
+
+
+
+
+  const test = chatroom.messages.map((message)=>{
+     return message.content
+  })
+
+  console.log(test)
+
+
+
+
 
   return(
     <>
-    <h1> Hello World</h1>
     <div>{displayChatsInConversation}</div>
       <div id="message-container">
            <p> Chat Here </p>
+           <p>{test}</p>
              <form id="send-container" onSubmit={createMessage}>
                <input type="text" id="message-input" onChange={handleNewMessageContent} />
                <button type="submit" id="send-button">Send</button>

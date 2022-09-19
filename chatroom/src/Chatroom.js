@@ -10,7 +10,7 @@ import ActionCable from "actioncable"
 
 function Chatroom({user, setLoggedUser, setUser}){
 
-  console.log("Chatroom is called")
+ 
 
     const navigate = useNavigate()
 
@@ -35,7 +35,7 @@ function Chatroom({user, setLoggedUser, setUser}){
     
     const params = useParams()
 
-    console.log("params has been set", params)
+   
 
    
   useEffect(()=>{
@@ -61,8 +61,6 @@ function Chatroom({user, setLoggedUser, setUser}){
 
 
    async function handleSetConversation(e){
-
-    console.log(e)
 
     const getFetch = await fetch(`/conversations/${e.target.value}`).then(response => response.json())
 

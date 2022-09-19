@@ -11,7 +11,7 @@ function App() {
 
   const params = useParams()
 
-  console.log(params, "Params in App page")
+  
 
   const [ user, setUser ] = useState(null);
 
@@ -23,7 +23,7 @@ function App() {
     });
   }, []);
 
-  console.log(user)
+
 
  
 
