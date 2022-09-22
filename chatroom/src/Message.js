@@ -1,23 +1,22 @@
+import React from "react"
+import {Card, CardActions, CardContent,List, ListItem,Button,Typography,Input} from '@material-ui/core';
+
 function Message({chatroom}){
-
-    console.log(chatroom)
-
-    const test = chatroom.messages.map((message)=>{
-        return message.content
+    const chats = chatroom.messages.map((message)=>{
+        return(
+            <>
+            <p>{message.content}</p>
+            </>
+        )  
+         
     })
 
-    console.log(test)
-
-    // const test = chat.map((chat)=>{
-    //     return chat.content
-    // })
-
-    // console.log(test)
 
     return(
-        <>
-        <p>{test}</p>
-        </>
+        <div id="ChatBox">
+            <br />
+            <p>{chats}</p>
+        </div>
     )
 
 }

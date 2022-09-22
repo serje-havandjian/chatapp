@@ -2,8 +2,8 @@ import { useState, useEffect, useReducer } from "react"
 import { useParams } from "react-router-dom"
 // import {createConsumer} from "@rails/actioncable"
 import Cable from "actioncable"
-import ActionCable from "actioncable"
 import Message from "./Message"
+import {Card} from "semantic-ui-react"
 
 
 
@@ -29,14 +29,11 @@ function reducer(state, action) {
   }
 }
 
-  
 
 function Conversation({user}){
 
-  const [displayChatsInConversation, setDisplayChatsInConversation ] = useState([])
+  
   const [message, setMessage] = useState([])
-  const [newMessage, setNewMessage] = useState()
-  const [showMessage, setShowMessage] = useState ({})
   
   const params = useParams()
 
@@ -48,11 +45,7 @@ function Conversation({user}){
   
   const { chatroom, chatConnection } = state
 
-  
-
-
   useEffect(()=>{
-
     function createSocket(){
       
       if(chatConnection.consumer){
@@ -106,14 +99,6 @@ function Conversation({user}){
     chatConnection.send({ message: { content: message, conversation_id: chatroom.id } })
   }
 
-
-
-
-
- 
-
-
-
   function handleNewMessageContent(e){
     setMessage(e.target.value)
   }
@@ -132,32 +117,39 @@ function Conversation({user}){
     //         conversation_id: params.id
     //         };
         
-    fetch("/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        content: newMessage,
-        conversation_id: params.id,
-        user_id: user.id
-      })
-    }).then(r =>{
-        if(r.ok){
-          r.json().then(message =>{
-            handleMessageNew(message)
-            setMessage(() => "")
-          })
-        }
-      })
+    // fetch("/messages", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     content: newMessage,
+    //     conversation_id: params.id,
+    //     user_id: user.id
+    //   })
+    // }).then(r =>{
+    //     if(r.ok){
+    //       r.json().then(message =>{
+    //         handleMessageNew(message)
+    //         setMessage(() => "")
+    //       })
+    //     }
+    //   })
   };
 
+  
+
+
+  function handleDeleteConversation(){
+    fetch(`/conversations/${params.id}`, {
+      method: "DELETE"
+    })
+  }
 
   
   return(
-    <>
-    <div>{displayChatsInConversation}</div>
-      <div id="message-container">
+   <Card>
+<div id="message-container">
            <p> Chat Here </p>
            <div>
            
@@ -168,8 +160,13 @@ function Conversation({user}){
                <input type="text" id="message-input" onChange={handleNewMessageContent} />
                <button type="submit" id="send-button">Send</button>
              </form>
+             <button onClick={handleDeleteConversation}>Destroy Conversation</button>
         </div>
-    </>
+   </Card>
+    
+  
+      
+    
   )
 }
 

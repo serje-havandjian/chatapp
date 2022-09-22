@@ -10,30 +10,17 @@ import ActionCable from "actioncable"
 
 function Chatroom({user, setLoggedUser, setUser}){
 
- 
+  const navigate = useNavigate()
+  const [allUsers, setAllUsers] = useState([])
+  const [title, setTitle] = useState()
+  const [secondUser, setSecondUser] = useState()
+  const [chatrooms, setChatrooms] = useState([])
+  const [chatroomId, setChatroomId] = useState()
+  const [conversation, setConversation] = useState()
+  const [displayConversation, setDisplayConversation] = useState()
+  const [displayDeleteButton, setDisplayDeleteButton] = useState(false)
+  const [newMessage, setNewMessage] = useState()
 
-    const navigate = useNavigate()
-
-    const [allUsers, setAllUsers] = useState([])
-
-    const [title, setTitle] = useState()
-    const [secondUser, setSecondUser] = useState()
-
-    const [chatrooms, setChatrooms] = useState([])
-
-    const [chatroomId, setChatroomId] = useState()
-
-    const [conversation, setConversation] = useState()
-
-    const [displayConversation, setDisplayConversation] = useState()
-
-    const [displayDeleteButton, setDisplayDeleteButton] = useState(false)
-
-    const [newMessage, setNewMessage] = useState()
-
-    const [displayChatsInConversation, setDisplayChatsInConversation ] = useState([])
-    
-    const params = useParams()
 
    
 
@@ -59,9 +46,7 @@ function Chatroom({user, setLoggedUser, setUser}){
     return <option value={user.id}> {user.username} </option>
   })
 
-
    async function handleSetConversation(e){
-
     const getFetch = await fetch(`/conversations/${e.target.value}`).then(response => response.json())
 
     let showConversation = getFetch.messages.map((message)=>{
@@ -72,28 +57,18 @@ function Chatroom({user, setLoggedUser, setUser}){
     setConversation(getFetch)
     setChatroomId(e.target.value)
     setDisplayDeleteButton(!displayDeleteButton)
-
     navigate(`/conversations/${e.target.value}`)   
-    
-
   }
-
-  
-
 
  const displayChatrooms = chatrooms.map((chatroom)=>{
    return(
      <div>
-          <button onClick={handleSetConversation} value={chatroom.id}> Chatroom Title:{chatroom.title}, a chatroom between {chatroom.user_a.name} {chatroom.user_b.name} 
-          </button> 
+        <button onClick={handleSetConversation} value={chatroom.id}> Chatroom Title:{chatroom.title}, a chatroom between {chatroom.user_a.name} {chatroom.user_b.name} 
+        </button> 
      </div>
    ) 
  })
  
-
-
-
-
   function handleSetUserName(e){
     setSecondUser(e.target.value)
   }
@@ -127,17 +102,13 @@ function Chatroom({user, setLoggedUser, setUser}){
       },
       body: JSON.stringify(newConversationObject)
     })
-
   }
 
   function handleDeleteConversation(){
     fetch(`conversations/${chatroomId}`, {
-            method: "DELETE"
-        })
+      method: "DELETE"
+    })
   }
-
-
-
 
   return (
     <div >
@@ -163,16 +134,8 @@ function Chatroom({user, setLoggedUser, setUser}){
         <div>
           {displayDeleteButton === true ? 
           <div> {displayConversation} 
-          <button onClick={handleDeleteConversation}> Delete Conversation </button> 
-          
-          {/* <Routes>
-            <Route element={<Conversation user={user} conversation={conversation} newMessage={newMessage} setNewMessage={setNewMessage} setConversation={setConversation} />} />
-          </Routes> */}
-
-          <Conversation user={user} conversation={conversation} newMessage={newMessage} setNewMessage={setNewMessage} setConversation={setConversation} displayConversation={displayConversation} chatroomId={chatroomId} />
-          
-          
-        
+          <button onClick={handleDeleteConversation}> Delete Conversation </button>       
+            <Conversation user={user} conversation={conversation} newMessage={newMessage} setNewMessage={setNewMessage} setConversation={setConversation} displayConversation={displayConversation} chatroomId={chatroomId} />
           </div> 
           : null }
         </div>
