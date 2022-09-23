@@ -1,12 +1,7 @@
-import React, {useState, useEffect, useRef} from "react"
-import { useParams, Route, Link, Routes } from "react-router-dom";
+import React, {useState, useEffect} from "react"
 import { useNavigate } from "react-router-dom";
-import Conversation from "./Conversation";
-import {createConsumer} from "@rails/actioncable"
-import Cable from "actioncable"
-import ActionCable from "actioncable"
-
-
+import {Button} from "semantic-ui-react"
+import './App.css';
 
 function Chatroom({user, setUser}){
 
@@ -19,7 +14,7 @@ function Chatroom({user, setUser}){
   const [conversation, setConversation] = useState()
   const [displayConversation, setDisplayConversation] = useState()
   const [displayDeleteButton, setDisplayDeleteButton] = useState(false)
-  const [newMessage, setNewMessage] = useState()
+
 
 
    
@@ -38,9 +33,7 @@ function Chatroom({user, setUser}){
     .then(result => setChatrooms(result))
   },[])
 
-  const displayAllUsers = allUsers.map((user)=>{
-    return <p>{user.username}</p>
-  })
+
 
   const userOptions = allUsers.map((user)=>{
     return <option value={user.id}> {user.username} </option>
@@ -63,8 +56,11 @@ function Chatroom({user, setUser}){
  const displayChatrooms = chatrooms.map((chatroom)=>{
    return(
      <div>
-        <button onClick={handleSetConversation} value={chatroom.id}> {chatroom.title}  
-        </button> members: {chatroom.user_a.name} {chatroom.user_b.name} 
+       <br></br>
+        <Button basic inverted color = "teal" onClick={handleSetConversation} value={chatroom.id}> 
+          {chatroom.title}  
+        </Button> 
+        members: {chatroom.user_a.name} {chatroom.user_b.name} 
      </div>
    ) 
  })
@@ -124,7 +120,9 @@ function Chatroom({user, setUser}){
               <br/>
                 Enter Name of Chatroom
               <input type="text" value={title} onChange={handleChatroomTitle} />
-              <button>Submit</button>
+              <Button >
+                Submit
+              </Button>
             </div>
           </form>
         </div>
@@ -133,19 +131,11 @@ function Chatroom({user, setUser}){
           <p>All Chatrooms</p>
           {displayChatrooms}
         </div>
-        <div>
-          {displayDeleteButton === true ? 
-          <div> {displayConversation} 
-          <button onClick={handleDeleteConversation}> Delete Conversation </button>       
-            <Conversation user={user} conversation={conversation} newMessage={newMessage} setNewMessage={setNewMessage} setConversation={setConversation} displayConversation={displayConversation} chatroomId={chatroomId} />
-          </div> 
-          : null }
-        </div>
-
+     
        
-        <button onClick={handleLogoutClick}>
+        <Button onClick={handleLogoutClick}>
           Logout
-        </button>
+        </Button>
       </header>
     </div>
     

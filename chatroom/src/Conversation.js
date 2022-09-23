@@ -2,9 +2,9 @@ import { useState, useEffect, useReducer } from "react"
 import { useParams } from "react-router-dom"
 // import {createConsumer} from "@rails/actioncable"
 import Cable from "actioncable"
-import Message from "./Message"
+import Message from "./Messages"
 
-
+import './App.css';
 
 
 function reducer(state, action) {
@@ -149,24 +149,18 @@ function Conversation({user}){
 
   
   return(
-
-        <div id="message-container">
-           <p> Chat Here </p>
-           <div>
-           {chatroom.title ? (<Message chatroom = {chatroom} user={user} /> ) : null }
-           </div>
-           
-             <form id="send-container" onSubmit={createMessage}>
-               <input type="text" id="message-input" onChange={handleNewMessageContent} />
-               <button type="submit" id="send-button">Send</button>
-             </form>
-             <button onClick={handleDeleteConversation}>Destroy Conversation</button>
-        </div>
-  
-    
-  
-      
-    
+    <div id="message-container">
+      <div>
+        {chatroom.title ? (<Message chatroom = {chatroom} user={user} /> ) : null }
+      </div>
+      <div className="messageSubmit">
+        <form onSubmit={createMessage}>
+          <input type="text" id="message-input" onChange={handleNewMessageContent} />
+          <button type="submit" id="send-button">Send</button>
+        </form>
+      </div>
+      <button onClick={handleDeleteConversation}>Destroy Conversation</button>
+    </div>
   )
 }
 
