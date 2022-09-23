@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 // import {createConsumer} from "@rails/actioncable"
 import Cable from "actioncable"
 import Message from "./Message"
-import {Card} from "semantic-ui-react"
+
 
 
 
@@ -31,6 +31,7 @@ function reducer(state, action) {
 
 
 function Conversation({user}){
+
 
   
   const [message, setMessage] = useState([])
@@ -148,21 +149,20 @@ function Conversation({user}){
 
   
   return(
-   <Card>
-<div id="message-container">
+
+        <div id="message-container">
            <p> Chat Here </p>
            <div>
-           
+           {chatroom.title ? (<Message chatroom = {chatroom} user={user} /> ) : null }
            </div>
-           {chatroom.title ? (<Message chatroom = {chatroom} /> ) : null }
-          
+           
              <form id="send-container" onSubmit={createMessage}>
                <input type="text" id="message-input" onChange={handleNewMessageContent} />
                <button type="submit" id="send-button">Send</button>
              </form>
              <button onClick={handleDeleteConversation}>Destroy Conversation</button>
         </div>
-   </Card>
+  
     
   
       

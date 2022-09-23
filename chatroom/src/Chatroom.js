@@ -8,7 +8,7 @@ import ActionCable from "actioncable"
 
 
 
-function Chatroom({user, setLoggedUser, setUser}){
+function Chatroom({user, setUser}){
 
   const navigate = useNavigate()
   const [allUsers, setAllUsers] = useState([])
@@ -63,8 +63,8 @@ function Chatroom({user, setLoggedUser, setUser}){
  const displayChatrooms = chatrooms.map((chatroom)=>{
    return(
      <div>
-        <button onClick={handleSetConversation} value={chatroom.id}> Chatroom Title:{chatroom.title}, a chatroom between {chatroom.user_a.name} {chatroom.user_b.name} 
-        </button> 
+        <button onClick={handleSetConversation} value={chatroom.id}> {chatroom.title}  
+        </button> members: {chatroom.user_a.name} {chatroom.user_b.name} 
      </div>
    ) 
  })
@@ -113,20 +113,22 @@ function Chatroom({user, setLoggedUser, setUser}){
   return (
     <div >
       <header className="App-header">
-        <div>
-          <p>All Users</p>
-          {displayAllUsers}
-        </div>
+
         <div>
           <form onSubmit={createChatRoom}>
-            <label>Choose a user to chat with and enter chatroom name:</label>
+            <div>
+              <label>Choose a user to chat with:</label>
               <select onChange={handleSetUserName}>
-                {userOptions}
-              </select>
+                  {userOptions}
+                </select>
+              <br/>
+                Enter Name of Chatroom
               <input type="text" value={title} onChange={handleChatroomTitle} />
               <button>Submit</button>
+            </div>
           </form>
         </div>
+        <br></br>
         <div>
           <p>All Chatrooms</p>
           {displayChatrooms}
@@ -140,10 +142,7 @@ function Chatroom({user, setLoggedUser, setUser}){
           : null }
         </div>
 
-        <div>
-          <h1>MESSAGES</h1>
-          {newMessage}
-        </div>
+       
         <button onClick={handleLogoutClick}>
           Logout
         </button>

@@ -1,12 +1,21 @@
 import React from "react"
-import {Card, CardActions, CardContent,List, ListItem,Button,Typography,Input} from '@material-ui/core';
+import {Comment} from "semantic-ui-react"
 
-function Message({chatroom}){
+function Message({chatroom, user}){
+
+    console.log(chatroom)
+
     const chats = chatroom.messages.map((message)=>{
         return(
-            <>
-            <p>{message.content}</p>
-            </>
+            
+            <Comment>
+                <Comment.Content>
+                    <Comment.Text> {message.user.username} : {message.content}  </Comment.Text>
+                </Comment.Content>
+                
+            </Comment>
+            
+            
         )  
          
     })
