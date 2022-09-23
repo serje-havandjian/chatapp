@@ -1,5 +1,5 @@
 import React from "react"
-import {Comment, Message} from "semantic-ui-react"
+import {Comment, Icon, Message} from "semantic-ui-react"
 import './App.css';
 
 function Messages({chatroom, user}){
@@ -9,6 +9,7 @@ function Messages({chatroom, user}){
             <div >
                 <br></br>
                 <div >
+                    <Icon circular inverted color="teal" name="envelope square" size="tiny" />
                     {message.user.username}: 
                     {message.content} 
                 </div>

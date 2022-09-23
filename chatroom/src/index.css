@@ -35,10 +35,11 @@ code {
 }
 
 .test{
-  height: 2px;
+  height: .5px;
   background-color: rgb(60, 195, 219);
 }
 
 .messageSubmit{
-  margin-left: 40%;
+  margin-left: 35%;
+  width: 50%;
 }
