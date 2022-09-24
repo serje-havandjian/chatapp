@@ -43,3 +43,16 @@ code {
   margin-left: 35%;
   width: 50%;
 }
+
+.firstUserColor{
+  color: rgb(223, 76, 76);
+}
+
+.secondUserColor{
+  color: rgb(93, 243, 125);
+
+}
+
+/* #message-input{
+  max-width: 50px;
+} */

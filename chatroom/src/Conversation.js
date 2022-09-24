@@ -154,15 +154,13 @@ function Conversation({user}){
         {chatroom.title ? (<Message chatroom = {chatroom} user={user} /> ) : null }
       </div>
       <div className="messageSubmit">
-      <Form width={3} onSubmit={createMessage}>
+      <Form size="mini" onSubmit={createMessage}>
         <Form.Group>
-          
             <Form.Input type="text" id="message-input" onChange={handleNewMessageContent} />
-            <Button icon>
-              <Icon name="angle right">
-              </Icon> 
-            </Button>
-    
+              <Button size="mini" icon>
+                <Icon name="angle right">
+                </Icon> 
+              </Button>
         </Form.Group>
         </Form>
       </div>

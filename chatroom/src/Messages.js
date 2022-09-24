@@ -5,17 +5,34 @@ import './App.css';
 function Messages({chatroom, user}){
 
     const chats = chatroom.messages.map((message)=>{
-        return(
-            <div >
-                <br></br>
-                <div >
-                    <Icon circular inverted color="teal" name="envelope square" size="tiny" />
-                    {message.user.username}: 
-                    {message.content} 
-                </div>
-                <p className="test" />
-            </div>
-        ) 
+
+            console.log(message)
+
+            if(message.user.name[0] === "R" ){
+                return(
+                    <div >
+                        <br></br>
+                        <div >
+                            <Icon circular inverted color="teal" name="envelope square" size="tiny" />
+                            <span className="firstUserColor">{message.user.username}:</span>
+                            {message.content} 
+                        </div>
+                        <p className="test" />
+                    </div>
+                ) 
+            }else{
+                return(
+                    <div >
+                        <br></br>
+                        <div >
+                            <Icon circular inverted color="teal" name="envelope square" size="tiny" />
+                            <span className="secondUserColor">{message.user.username}:</span>
+                            {message.content} 
+                        </div>
+                        <p className="test" />
+                    </div>
+                ) 
+            }        
     })
 
 
