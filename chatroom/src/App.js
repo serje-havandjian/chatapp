@@ -9,8 +9,6 @@ import Essen from "./Essen";
 
 function App() {
 
-  const params = useParams()
-
   
 
   const [ user, setUser ] = useState(null);
@@ -24,6 +22,7 @@ function App() {
   }, []);
 
 
+  console.log(user)
 
  
 

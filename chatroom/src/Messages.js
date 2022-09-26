@@ -6,7 +6,6 @@ function Messages({chatroom, user}){
 
     const chats = chatroom.messages.map((message)=>{
 
-            console.log(message)
 
             if(message.user.name[0] === "R" ){
                 return(

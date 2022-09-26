@@ -149,23 +149,25 @@ function Conversation({user}){
 
   
   return(
-    <div id="message-container">
-      <div>
-        {chatroom.title ? (<Message chatroom = {chatroom} user={user} /> ) : null }
+    
+      <div id="message-container">
+        <div>
+          {chatroom.title ? (<Message chatroom = {chatroom} user={user} /> ) : null }
+        </div>
+        <div className="messageSubmit">
+        <Form size="mini" onSubmit={createMessage}>
+          <Form.Group>
+              <Form.Input type="text" id="message-input" onChange={handleNewMessageContent} />
+                <Button size="mini" icon>
+                  <Icon name="angle right">
+                  </Icon> 
+                </Button>
+          </Form.Group>
+          </Form>
+        </div>
+        <Button id="deleteButton" size="mini" onClick={handleDeleteConversation}>Delete Conversation</Button>
       </div>
-      <div className="messageSubmit">
-      <Form size="mini" onSubmit={createMessage}>
-        <Form.Group>
-            <Form.Input type="text" id="message-input" onChange={handleNewMessageContent} />
-              <Button size="mini" icon>
-                <Icon name="angle right">
-                </Icon> 
-              </Button>
-        </Form.Group>
-        </Form>
-      </div>
-      <Button onClick={handleDeleteConversation}>Destroy Conversation</Button>
-    </div>
+
   )
 }
 
