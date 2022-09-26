@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react"
 import { useNavigate } from "react-router-dom";
-import {Button} from "semantic-ui-react"
+import {Button, Card, Feed, Dropdown} from "semantic-ui-react"
 import './App.css';
 
 function Chatroom({user, setUser}){
@@ -36,7 +36,13 @@ function Chatroom({user, setUser}){
 
 
   const userOptions = allUsers.map((user)=>{
-    return <option value={user.id}> {user.username} </option>
+    return {
+      key: `${user.username}`,
+      text: `${user.username}`,
+      value: `${user.id}`
+    }
+    
+   
   })
 
    async function handleSetConversation(e){
@@ -53,14 +59,60 @@ function Chatroom({user, setUser}){
     navigate(`/conversations/${e.target.value}`)   
   }
 
+  console.log(displayConversation, "CONVERSATION HERE")
+
+
+  // const chats = chatroom.messages.map((message)=>{
+  //   return(
+  //     <div >
+  //         <br></br>
+  //         <div >
+  //             {message.content} 
+  //         </div>
+  //         <p className="test" />
+  //     </div>
+  // ) 
+  // })
+
  const displayChatrooms = chatrooms.map((chatroom)=>{
+
+  let messageContent = chatroom.messages.map((message)=>{
+    return message.content
+  })
+
+  let messageUser = chatroom.messages.map((message)=>{
+    return message.user.name
+  })
+
    return(
-     <div>
+     <div className="cardGroup" > 
        <br></br>
-        <Button basic inverted color = "teal" onClick={handleSetConversation} value={chatroom.id}> 
-          {chatroom.title}  
-        </Button> 
-        members: {chatroom.user_a.name} {chatroom.user_b.name} 
+       
+       <Card fluid >
+         <Card.Content>
+           <Card.Header>{chatroom.title} </Card.Header>
+           <Card.Description>members: {chatroom.user_a.name} {chatroom.user_b.name} </Card.Description>
+           <Feed>
+             <Feed.Event>
+               <Feed.Content>
+                 <Feed.Summary>
+                   summary of conversation:
+                   <br></br>
+                   {messageUser[0]}: {messageContent[messageContent.length -2]}
+                   <br></br>
+                   {messageUser[1]}: {messageContent[messageContent.length -1]}
+                 </Feed.Summary>
+               </Feed.Content>
+             </Feed.Event>
+           </Feed>
+           <Card.Content extra>
+           <Button basic  color = "teal" onClick={handleSetConversation} value={chatroom.id}> 
+           Join Chat
+           </Button> 
+           </Card.Content>
+         </Card.Content>
+       </Card>
+        <br></br>
      </div>
    ) 
  })
@@ -100,23 +152,26 @@ function Chatroom({user, setUser}){
     })
   }
 
-  function handleDeleteConversation(){
-    fetch(`conversations/${chatroomId}`, {
-      method: "DELETE"
-    })
-  }
+
 
   return (
     <div >
-      <header className="App-header">
-
+      <header className="homePageStyle">
         <div>
+        <Button className="logoutButton" onClick={handleLogoutClick}>
+          Logout
+        </Button>
           <form onSubmit={createChatRoom}>
             <div>
               <label>Choose a user to chat with:</label>
-              <select onChange={handleSetUserName}>
-                  {userOptions}
-                </select>
+              <Dropdown onChange={handleSetUserName} 
+              placeholder="users"
+              fluid
+              selection
+              options={userOptions}
+              />
+                 
+                
               <br/>
                 Enter Name of Chatroom
               <input type="text" value={title} onChange={handleChatroomTitle} />
@@ -127,15 +182,10 @@ function Chatroom({user, setUser}){
           </form>
         </div>
         <br></br>
-        <div>
-          <p>All Chatrooms</p>
+        <div >
+        
           {displayChatrooms}
         </div>
-     
-       
-        <Button onClick={handleLogoutClick}>
-          Logout
-        </Button>
       </header>
     </div>
     

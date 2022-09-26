@@ -7,6 +7,7 @@ function Messages({chatroom, user}){
     const chats = chatroom.messages.map((message)=>{
 
 
+
             if(message.user.name[0] === "R" ){
                 return(
                     <div >

@@ -25,6 +25,11 @@ code {
   width: 100%;
 }
 
+.homePageStyle {
+  background-color: #282c34;
+  color: white;
+}
+
 .ChatBox{
   background-color: #282c34;
 }
@@ -62,6 +67,19 @@ code {
 #deleteButton{
   margin-top: 100%;
   margin-right: 100%;
+}
+
+.cardStyle{
+  background-color: red;
+}
+
+.logoutButton{
+  float: right;
+}
+
+.cardGroup{
+  margin-left: 25%;
+  width: 50%;
 }
 /* #message-input{
   max-width: 50px;
