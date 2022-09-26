@@ -147,14 +147,15 @@ function Conversation({user}){
 
   
   return(
-      <div id="message-container">
-        <div>
+      <div >
+        <div className="message-container">
           {chatroom.title ? (<Message chatroom = {chatroom} user={user} /> ) : null }
         </div>
         <div className="messageSubmit">
+          <br></br>
         <Form size="mini" onSubmit={createMessage}>
           <Form.Group>
-              <Form.Input type="text" id="message-input" onChange={handleNewMessageContent} />
+              <Form.Input value={message} type="text" id="message-input" onChange={handleNewMessageContent} />
                 <Button size="mini" icon>
                   <Icon name="angle right">
                   </Icon> 
@@ -162,12 +163,12 @@ function Conversation({user}){
           </Form.Group>
           </Form>
         </div>
-
-        <Button className="goBackButton" size="mini" onClick={handleGoBack}>
+        <Button color="facebook" className="goBackButton" size="mini" onClick={handleGoBack}>
             Back To Chatrooms
         </Button>
-
-        <Button className="goBackButton" size="mini" onClick={handleDeleteConversation}>Delete Conversation</Button>
+        <Button color="youtube" className="deleteButton" size="mini" onClick={handleDeleteConversation}>
+          Delete Conversation
+        </Button>
       </div>
 
   )

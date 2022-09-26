@@ -1,11 +1,8 @@
 import React from "react"
-import {Button, Comment, Icon, Message} from "semantic-ui-react"
+import {Icon, Message} from "semantic-ui-react"
 import './App.css';
 
-function Messages({chatroom, user}){
-
-    console.log(chatroom)
-
+function Messages({chatroom}){
  
     const chats = chatroom.messages.map((message)=>{
         if(message.user.name[0] === "R" ){
@@ -13,7 +10,7 @@ function Messages({chatroom, user}){
                 <div >
                     <br></br>
                     <div >
-                        <Icon circular inverted color="teal" name="envelope square" size="tiny" />
+                        <Icon circular inverted color="teal" name="envelope square" size="small" />
                         <span className="firstUserColor">{message.user.username}:</span>
                         {message.content} 
                     </div>
@@ -25,7 +22,7 @@ function Messages({chatroom, user}){
                 <div >
                     <br></br>
                     <div >
-                        <Icon circular inverted color="teal" name="envelope square" size="tiny" />
+                        <Icon circular inverted color="teal" name="envelope square" size="small" />
                         <span className="secondUserColor">{message.user.username}:</span>
                         {message.content} 
                     </div>

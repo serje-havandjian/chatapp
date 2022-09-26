@@ -88,7 +88,6 @@ function Chatroom({user, setUser}){
    return(
      <div className="cardGroup" > 
        <br></br>
-       
        <Card fluid >
          <Card.Content>
            <Card.Header>{chatroom.title} </Card.Header>
@@ -107,7 +106,7 @@ function Chatroom({user, setUser}){
              </Feed.Event>
            </Feed>
            <Card.Content extra>
-           <Button basic color = "teal" onClick={handleSetConversation} value={chatroom.id}> 
+           <Button color = "facebook" onClick={handleSetConversation} value={chatroom.id}> 
            Join Chat
            </Button> 
            </Card.Content>
@@ -164,7 +163,7 @@ function Chatroom({user, setUser}){
         <Button className="logoutButton" onClick={handleLogoutClick}>
           Logout
         </Button>
-          <Form inverted className="chatroomCreateForm" onSubmit={createChatRoom}>
+          <Form  className="chatroomCreateForm" onSubmit={createChatRoom}>
             <Message 
               success
               header = "Chatroom Created"
@@ -180,7 +179,7 @@ function Chatroom({user, setUser}){
               <br/>
                 Enter Name of Chatroom
               <input type="text" value={title} onChange={handleChatroomTitle} />
-              <Button >
+              <Button color="facebook" >
                 Submit
               </Button>
           </Form>

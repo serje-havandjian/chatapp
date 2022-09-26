@@ -34,16 +34,20 @@ code {
   background-color: #282c34;
 }
 
-#message-container{
+.message-container{
+  margin-top: 50px;
+  margin-left: 15%;
+  
   background-color: #282c34;
-  height: 100%;
-  width: 100%;
+  height: 700px;
+  width: 70%;
+  overflow-y: scroll;
 }
 
 .chatRoom{
   background-color: #282c34;
   margin: 0 auto;
-  width: 80%;
+  width: 100%;
 }
 
 .test{
@@ -64,16 +68,6 @@ code {
   color: rgb(93, 243, 125);
 }
 
-#deleteButton{
-  margin-top: 100%;
-  margin-right: 100%;
-}
-
-#goBackButton{
-  margin-top: 100%;
-  margin-right: 100%;
-}
-
 .cardStyle{
   background-color: red;
 }
@@ -88,10 +82,13 @@ code {
 }
 
 .chatroomCreateForm{
-
   padding: 10px;
   border: 5px solid black;
   width: 250px;
+}
+
+.deleteButton{
+  float: right;
 }
 /* #message-input{
   max-width: 50px;
