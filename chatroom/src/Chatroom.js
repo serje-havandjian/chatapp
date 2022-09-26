@@ -160,15 +160,10 @@ function Chatroom({user, setUser}){
     <div >
       <header className="homePageStyle">
         <div>
-        <Button className="logoutButton" onClick={handleLogoutClick}>
+        <Button color="youtube" className="logoutButton" onClick={handleLogoutClick}>
           Logout
         </Button>
           <Form  className="chatroomCreateForm" onSubmit={createChatRoom}>
-            <Message 
-              success
-              header = "Chatroom Created"
-              content = "Chatroom created"
-            />
               <label>Choose a user to chat with:</label>
               <Dropdown onChange={handleSetUserName} 
               placeholder="users"

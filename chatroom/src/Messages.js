@@ -12,9 +12,9 @@ function Messages({chatroom}){
                     <div >
                         <Icon circular inverted color="teal" name="envelope square" size="small" />
                         <span className="firstUserColor">{message.user.username}:</span>
-                        {message.content} 
+                        <span className="messageFont"> {message.content}  </span>
                     </div>
-                    <p className="test" />
+                    <p className="borderLine" />
                 </div>
             ) 
         }else{
@@ -24,9 +24,9 @@ function Messages({chatroom}){
                     <div >
                         <Icon circular inverted color="teal" name="envelope square" size="small" />
                         <span className="secondUserColor">{message.user.username}:</span>
-                        {message.content} 
+                        <span className="messageFont"> {message.content}  </span>
                     </div>
-                    <p className="test" />
+                    <p className="borderLine" />
                 </div>
             ) 
         }        
@@ -34,16 +34,11 @@ function Messages({chatroom}){
 
 
     return(
-        <>
         <div className="chatRoom" >
-            <Message size="mini" color="black" >
-                <div className="ChatBox">
-                {chats}
-                </div>
-            </Message>
+            <div className="ChatBox">
+            {chats}
+            </div>
         </div>
-    
-        </>
     )
 
 }

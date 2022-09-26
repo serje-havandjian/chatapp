@@ -163,10 +163,10 @@ function Conversation({user}){
           </Form.Group>
           </Form>
         </div>
-        <Button color="facebook" className="goBackButton" size="mini" onClick={handleGoBack}>
+        <Button color="facebook" className="goBackButton" size="small" onClick={handleGoBack}>
             Back To Chatrooms
         </Button>
-        <Button color="youtube" className="deleteButton" size="mini" onClick={handleDeleteConversation}>
+        <Button color="youtube" className="deleteButton" size="small" onClick={handleDeleteConversation}>
           Delete Conversation
         </Button>
       </div>

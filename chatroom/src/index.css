@@ -37,7 +37,8 @@ code {
 .message-container{
   margin-top: 50px;
   margin-left: 15%;
-  
+  border: 10px rgb(24, 23, 23) solid;
+  border-radius: 15px;
   background-color: #282c34;
   height: 700px;
   width: 70%;
@@ -46,13 +47,18 @@ code {
 
 .chatRoom{
   background-color: #282c34;
+
   margin: 0 auto;
   width: 100%;
 }
 
-.test{
+.borderLine{
   height: .5px;
   background-color: rgb(60, 195, 219);
+}
+
+.messageFont{
+  color: white;
 }
 
 .messageSubmit{
@@ -62,10 +68,12 @@ code {
 
 .firstUserColor{
   color: rgb(223, 76, 76);
+  font-weight: bold;
 }
 
 .secondUserColor{
-  color: rgb(93, 243, 125);
+  color: rgb(65, 83, 243);
+  font-weight: bold;
 }
 
 .cardStyle{
