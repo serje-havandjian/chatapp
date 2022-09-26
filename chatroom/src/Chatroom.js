@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react"
 import { useNavigate } from "react-router-dom";
-import {Button, Card, Feed, Dropdown} from "semantic-ui-react"
+import {Button, Card, Feed, Dropdown, Form, Message} from "semantic-ui-react"
 import './App.css';
 
 function Chatroom({user, setUser}){
@@ -107,7 +107,7 @@ function Chatroom({user, setUser}){
              </Feed.Event>
            </Feed>
            <Card.Content extra>
-           <Button basic  color = "teal" onClick={handleSetConversation} value={chatroom.id}> 
+           <Button basic color = "teal" onClick={handleSetConversation} value={chatroom.id}> 
            Join Chat
            </Button> 
            </Card.Content>
@@ -119,7 +119,6 @@ function Chatroom({user, setUser}){
  })
  
   function handleSetUserName(e){
-    console.log(e)
     setSecondUser(e.target.id)
 
   }
@@ -138,8 +137,7 @@ function Chatroom({user, setUser}){
   }
 
   function createChatRoom(e){
-    console.log("TEST")
-    e.preventDefault()
+    
 
     const newConversationObject ={
       title: title,
@@ -156,8 +154,9 @@ function Chatroom({user, setUser}){
       },
       body: JSON.stringify(newConversationObject)
     })
+    .then(response => response.json())
+    .then(response => navigate(`/conversations/${response.id}`))
   }
-
 
 
   return (
@@ -167,8 +166,12 @@ function Chatroom({user, setUser}){
         <Button className="logoutButton" onClick={handleLogoutClick}>
           Logout
         </Button>
-          <form onSubmit={createChatRoom}>
-            <div>
+          <Form inverted className="chatroomCreateForm" onSubmit={createChatRoom}>
+            <Message 
+              success
+              header = "Chatroom Created"
+              content = "Chatroom created"
+            />
               <label>Choose a user to chat with:</label>
               <Dropdown onChange={handleSetUserName} 
               placeholder="users"
@@ -176,20 +179,16 @@ function Chatroom({user, setUser}){
               selection
               options={userOptions}
               />
-                 
-                
               <br/>
                 Enter Name of Chatroom
               <input type="text" value={title} onChange={handleChatroomTitle} />
               <Button >
                 Submit
               </Button>
-            </div>
-          </form>
+          </Form>
         </div>
         <br></br>
         <div >
-        
           {displayChatrooms}
         </div>
       </header>

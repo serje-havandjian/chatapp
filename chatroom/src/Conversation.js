@@ -1,5 +1,5 @@
 import { useState, useEffect, useReducer } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 // import {createConsumer} from "@rails/actioncable"
 import Cable from "actioncable"
 import Message from "./Messages"
@@ -32,8 +32,8 @@ function reducer(state, action) {
 
 function Conversation({user}){
 
+  const navigate = useNavigate()
 
-  
   const [message, setMessage] = useState([])
   
   const params = useParams()
@@ -73,7 +73,6 @@ function Conversation({user}){
   }, [chatroom.title, chatroom.id])
 
   useEffect(()=>{
-    
       fetch(`/conversations/${params.id}`)
       .then(r => {
         if(r.ok){
@@ -95,8 +94,6 @@ function Conversation({user}){
 
 
   function handleMessageNew(message) {
-    console.log(message)
-    console.log(params)
     chatConnection.send({ message: { content: message, conversation_id: chatroom.id } })
   }
 
@@ -108,8 +105,6 @@ function Conversation({user}){
     e.preventDefault()
     handleMessageNew(message)
     setMessage(() => "")
-
-    console.log(message)
 
     
     // const newMessageObject ={
@@ -139,17 +134,18 @@ function Conversation({user}){
   };
 
   
-
-
   function handleDeleteConversation(){
     fetch(`/conversations/${params.id}`, {
       method: "DELETE"
     })
   }
 
+  function handleGoBack(){
+    navigate(`/chatroom`)
+  }
+
   
   return(
-    
       <div id="message-container">
         <div>
           {chatroom.title ? (<Message chatroom = {chatroom} user={user} /> ) : null }
@@ -165,7 +161,12 @@ function Conversation({user}){
           </Form.Group>
           </Form>
         </div>
-        <Button id="deleteButton" size="mini" onClick={handleDeleteConversation}>Delete Conversation</Button>
+
+        <Button className="goBackButton" size="mini" onClick={handleGoBack}>
+            Back To Chatrooms
+        </Button>
+
+        <Button className="goBackButton" size="mini" onClick={handleDeleteConversation}>Delete Conversation</Button>
       </div>
 
   )

@@ -69,6 +69,11 @@ code {
   margin-right: 100%;
 }
 
+#goBackButton{
+  margin-top: 100%;
+  margin-right: 100%;
+}
+
 .cardStyle{
   background-color: red;
 }
@@ -80,6 +85,13 @@ code {
 .cardGroup{
   margin-left: 25%;
   width: 50%;
+}
+
+.chatroomCreateForm{
+
+  padding: 10px;
+  border: 5px solid black;
+  width: 250px;
 }
 /* #message-input{
   max-width: 50px;
