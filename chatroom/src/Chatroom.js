@@ -39,7 +39,8 @@ function Chatroom({user, setUser}){
     return {
       key: `${user.username}`,
       text: `${user.username}`,
-      value: `${user.id}`
+      value: `${user.id}`,
+      id: `${user.id}`
     }
     
    
@@ -59,7 +60,7 @@ function Chatroom({user, setUser}){
     navigate(`/conversations/${e.target.value}`)   
   }
 
-  console.log(displayConversation, "CONVERSATION HERE")
+
 
 
   // const chats = chatroom.messages.map((message)=>{
@@ -118,7 +119,9 @@ function Chatroom({user, setUser}){
  })
  
   function handleSetUserName(e){
-    setSecondUser(e.target.value)
+    console.log(e)
+    setSecondUser(e.target.id)
+
   }
   
   function handleLogoutClick() {
@@ -135,6 +138,7 @@ function Chatroom({user, setUser}){
   }
 
   function createChatRoom(e){
+    console.log("TEST")
     e.preventDefault()
 
     const newConversationObject ={
@@ -142,6 +146,8 @@ function Chatroom({user, setUser}){
       user_a_id: user.id,
       user_b_id: secondUser
     }
+
+    console.log(newConversationObject)
     
     fetch("/conversations", {
       method: "POST",
