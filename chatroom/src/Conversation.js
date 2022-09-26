@@ -138,6 +138,7 @@ function Conversation({user}){
     fetch(`/conversations/${params.id}`, {
       method: "DELETE"
     })
+    navigate(`/chatroom`)
   }
 
   function handleGoBack(){

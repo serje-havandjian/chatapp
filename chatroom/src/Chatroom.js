@@ -137,8 +137,6 @@ function Chatroom({user, setUser}){
   }
 
   function createChatRoom(e){
-    
-
     const newConversationObject ={
       title: title,
       user_a_id: user.id,
