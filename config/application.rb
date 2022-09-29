@@ -8,8 +8,11 @@ Bundler.require(*Rails.groups)
 
 module Chatapp
   class Application < Rails::Application
+  
+    config.action_cable.mount_path = '/websocket'
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
+    
 
     # Configuration for the application, engines, and railties goes here.
     #

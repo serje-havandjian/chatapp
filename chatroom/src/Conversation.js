@@ -29,7 +29,6 @@ function reducer(state, action) {
   }
 }
 
-
 function Conversation({user}){
 
   const navigate = useNavigate()
@@ -105,8 +104,6 @@ function Conversation({user}){
     e.preventDefault()
     handleMessageNew(message)
     setMessage(() => "")
-
-    
     // const newMessageObject ={
     //         content: newMessage,
     //         user_id: user.id,
@@ -133,44 +130,42 @@ function Conversation({user}){
     //   })
   };
 
-  
   function handleDeleteConversation(){
     fetch(`/conversations/${params.id}`, {
       method: "DELETE"
     })
-    navigate(`/chatroom`)
+    navigate(`/`)
   }
 
   function handleGoBack(){
-    navigate(`/chatroom`)
+    navigate(`/`)
   }
 
   
   return(
-      <div >
-        <div className="message-container">
-          {chatroom.title ? (<Message chatroom = {chatroom} user={user} /> ) : null }
-        </div>
-        <div className="messageSubmit">
-          <br></br>
-        <Form size="mini" onSubmit={createMessage}>
-          <Form.Group>
-              <Form.Input value={message} type="text" id="message-input" onChange={handleNewMessageContent} />
-                <Button size="mini" icon>
-                  <Icon name="angle right">
-                  </Icon> 
-                </Button>
-          </Form.Group>
-          </Form>
-        </div>
-        <Button color="facebook" className="goBackButton" size="small" onClick={handleGoBack}>
-            Back To Chatrooms
-        </Button>
-        <Button color="youtube" className="deleteButton" size="small" onClick={handleDeleteConversation}>
-          Delete Conversation
-        </Button>
+    <div >
+      <div className="message-container">
+        {chatroom.title ? (<Message chatroom = {chatroom} user={user} /> ) : null }
       </div>
-
+      <div className="messageSubmit">
+        <br></br>
+      <Form size="mini" onSubmit={createMessage}>
+        <Form.Group>
+            <Form.Input value={message} type="text" id="message-input" onChange={handleNewMessageContent} />
+              <Button size="mini" icon>
+                <Icon name="angle right">
+                </Icon> 
+              </Button>
+        </Form.Group>
+        </Form>
+      </div>
+      <Button color="facebook" className="goBackButton" size="small" onClick={handleGoBack}>
+          Back To Chatrooms
+      </Button>
+      <Button color="youtube" className="deleteButton" size="small" onClick={handleDeleteConversation}>
+        Delete Conversation
+      </Button>
+    </div>
   )
 }
 

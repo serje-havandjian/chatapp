@@ -88,30 +88,30 @@ function Chatroom({user, setUser}){
    return(
      <div className="cardGroup" > 
        <br></br>
-       <Card fluid >
-         <Card.Content>
-           <Card.Header>{chatroom.title} </Card.Header>
-           <Card.Description>members: {chatroom.user_a.name} {chatroom.user_b.name} </Card.Description>
-           <Feed>
-             <Feed.Event>
-               <Feed.Content>
-                 <Feed.Summary>
-                   summary of conversation:
-                   <br></br>
-                   {messageUser[0]}: {messageContent[messageContent.length -2]}
-                   <br></br>
-                   {messageUser[1]}: {messageContent[messageContent.length -1]}
-                 </Feed.Summary>
-               </Feed.Content>
-             </Feed.Event>
-           </Feed>
-           <Card.Content extra>
-           <Button color = "facebook" onClick={handleSetConversation} value={chatroom.id}> 
-           Join Chat
-           </Button> 
-           </Card.Content>
-         </Card.Content>
-       </Card>
+       <div class="ui raised link card">
+         <a class= "ui card" href={`conversations/${chatroom.id}`}>
+          <Card fluid color="blue">
+            <Card.Content>
+              <Card.Header>{chatroom.title} </Card.Header>
+              <Card.Description>members: {chatroom.user_a.name} {chatroom.user_b.name} </Card.Description>
+              <Feed>
+                <Feed.Event>
+                  <Feed.Content>
+                    <Feed.Summary>
+                      summary of conversation:
+                      <br></br>
+                      {messageUser[0]}: {messageContent[messageContent.length -2]}
+                      <br></br>
+                      {messageUser[1]}: {messageContent[messageContent.length -1]}
+                    </Feed.Summary>
+                  </Feed.Content>
+                </Feed.Event>
+              </Feed>
+             
+            </Card.Content>
+          </Card>
+          </a>
+        </div>
         <br></br>
      </div>
    ) 

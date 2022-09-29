@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-
+  
+  mount ActionCable.server => "/cable"
 
   resources :messages
   resources :conversations
@@ -18,7 +19,7 @@ Rails.application.routes.draw do
   post "/signup", to: "users#create"
   get "/me", to: "users#show"
 
-  mount ActionCable.server => "/cable"
+  
 
 end
 

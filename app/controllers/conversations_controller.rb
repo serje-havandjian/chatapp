@@ -3,12 +3,12 @@ class ConversationsController < ApplicationController
     def index
         user = User.find(session[:user_id])
         conversations = user.conversations
-        render json: conversations, status: :ok
+        render json: conversations, include: "*", status: :ok
     end
 
     def show
         oneConversation = Conversation.find(params[:id])
-        render json: oneConversation, status: :ok
+        render json: oneConversation, include: :messages, status: :ok
     end
 
     def create
@@ -26,5 +26,9 @@ class ConversationsController < ApplicationController
     def conversation_params
         params.permit(:title, :user_a_id, :user_b_id)
     end
+
+    def membership
+        @membership ||= Conversation.find(params[:id])
+      end
 
 end
