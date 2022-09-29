@@ -134,11 +134,11 @@ function Conversation({user}){
     fetch(`/conversations/${params.id}`, {
       method: "DELETE"
     })
-    navigate(`/`)
+    navigate(`/chatroom`)
   }
 
   function handleGoBack(){
-    navigate(`/`)
+    navigate(`/chatroom`)
   }
 
   

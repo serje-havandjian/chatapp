@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
+import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react';
 
 function Login({setUser}){
     const [name, setName] = useState("")
@@ -32,11 +32,9 @@ function Login({setUser}){
       <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle' >
         <Grid.Column style={{maxWidth: 450}}>
         <h1>Login</h1>
-
-        <h2> Login </h2>
             <Form onSubmit={handleSubmit}>
-            <label htmlFor="name">Enter Name</label>
               <Segment stacked>
+              <label htmlFor="name">Enter Name</label>
               <Form.Input
                 fluid 
                 icon='user' 

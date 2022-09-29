@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from "react"
-import {Route, Switch, useParams, Routes, BrowserRouter as Router} from "react-router-dom"
+import {Route, Routes, BrowserRouter as Router} from "react-router-dom"
 import './App.css';
 import Chatroom from "./Chatroom";
 import SignUp from "./SignUp";
 import Login from "./Login";
 import Conversation from "./Conversation";
-import Essen from "./Essen";
 
 function App() {
 
@@ -31,21 +30,16 @@ function App() {
     {user ? (
     <Router>
           <Routes>
-            <Route path ="/" element={<Chatroom user={user} setUser={setUser} />} /> 
+            <Route path ="/chatroom" element={<Chatroom user={user} setUser={setUser} />} /> 
             <Route path="/Conversations/:id" element={<Conversation user={user} />} />
-
-            {/* <Route path="/" element={<Essen />} />  */}
           </Routes>
        
       </Router>
       ) : (
         <Router>
           <Routes>
-            <Route path="signup" element={<SignUp />} />
-              {/* <SignUp setUser = {setUser} /> */}
-
-            <Route path="login" element={<Login setUser={setUser} />}>
-              {/* <Login setUser= {setUser} /> */}
+            <Route path="/" element={<SignUp />} />
+            <Route path="/login" element={<Login setUser={setUser} />}>
             </Route>
           </Routes>
         </Router>
