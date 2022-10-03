@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "@material-ui/core": "^4.12.4",
-    "@rails/actioncable": "^7.0.4",
-    "actioncable": "^5.2.8-1",
-    "react-router-dom": "^6.3.0"
-  }
-}
