@@ -52,6 +52,12 @@ test:
   <<: *default
   database: chatapp_test
 
+# production:
+#   <<: *default
+#   database: chatapp_test_production
+
 production:
   <<: *default
-  database: chatapp_test_production
+  database: Litigator_production
+  username: Chatapp
+  password: <%= ENV["CHATAPP_DATABASE_PASSWORD"] %>
