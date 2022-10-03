@@ -54,4 +54,4 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  database: chatapp_test_production
