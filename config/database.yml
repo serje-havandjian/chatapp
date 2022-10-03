@@ -32,7 +32,7 @@
 # Configure Using Gemfile
 # gem "pg"
 
-  default: &default
+  default: *default
   adapter: postgresql
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
@@ -55,9 +55,6 @@ test:
 # production:
 #   <<: *default
 #   database: chatapp_test_production
-
 production:
   <<: *default
-  database: Litigator_production
-  username: Chatapp
-  password: <%= ENV["CHATAPP_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %> 
