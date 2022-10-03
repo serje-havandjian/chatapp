@@ -41,7 +41,7 @@
 
 development:
   <<: *default
-  database: chatapp_production
+  database: chatapp_development
 
 
 
@@ -50,8 +50,8 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: chatapp_production
+  database: chatapp_test
 
-# production:
-#   <<: *default
-#   database: db/production.sqlite3
+production:
+  <<: *default
+  database: db/production.sqlite3
