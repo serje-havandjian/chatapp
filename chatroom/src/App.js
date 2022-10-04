@@ -35,7 +35,7 @@ function App() {
       ) : (
         <Router>
           <Routes>
-            <Route exact path="/login" element={<Login setUser={setUser} />}>
+            <Route exact path="/" element={<Login setUser={setUser} />}>
             <Route exact path="/signup" element={<SignUp />} />
             </Route>
           </Routes>
