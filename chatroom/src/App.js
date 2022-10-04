@@ -13,7 +13,7 @@ function App() {
   const [ user, setUser ] = useState(null);
 
   useEffect(() => {
-    fetch("/me").then((r) => {
+    fetch("https://chat-app-project-2.herokuapp.com/me").then((r) => {
       if (r.ok) {
         r.json().then((user) => setUser(user));
       }
