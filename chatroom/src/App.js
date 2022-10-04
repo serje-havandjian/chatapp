@@ -27,16 +27,16 @@ function App() {
     {user ? (
     <Router>
           <Routes>
-            <Route exact path ="/" element={<Chatroom user={user} setUser={setUser} />} /> 
-            <Route exact path="/Conversations/:id" element={<Conversation user={user} />} />
+            <Route path ="/Chatroom" element={<Chatroom user={user} setUser={setUser} />} /> 
+            <Route path="/Conversations/:id" element={<Conversation user={user} />} />
           </Routes>
        
       </Router>
       ) : (
         <Router>
           <Routes>
-            <Route exact path="/" element={<Login setUser={setUser} />}>
-            <Route exact path="/signup" element={<SignUp />} />
+            <Route path="/" element={<SignUp />} />
+            <Route path="/login" element={<Login setUser={setUser} />}>
             </Route>
           </Routes>
         </Router>
