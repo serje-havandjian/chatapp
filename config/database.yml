@@ -95,5 +95,5 @@ test:
 production:
   <<: *default
   database: Chatapp_production
-  username: Chatapp
-  password: <%= ENV["CHATAPP_DATABASE_PASSWORD"] %>
+  # username: Chatapp
+  # password: <%= ENV["CHATAPP_DATABASE_PASSWORD"] %>
