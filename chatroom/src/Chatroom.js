@@ -21,14 +21,14 @@ function Chatroom({user, setUser}){
 
    
   useEffect(()=>{
-    fetch("/users")
+    fetch("https://chat-app-project-2.herokuapp.com/users")
     .then(result => result.json())
     .then(result => setAllUsers(result))
 
   },[])
 
   useEffect(()=>{
-    fetch("/conversations")
+    fetch("https://chat-app-project-2.herokuapp.com/conversations")
     .then(result => result.json())
     .then(result => setChatrooms(result))
   },[])
@@ -144,7 +144,7 @@ function Chatroom({user, setUser}){
 
     console.log(newConversationObject)
     
-    fetch("/conversations", {
+    fetch("https://chat-app-project-2.herokuapp.com/conversations", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

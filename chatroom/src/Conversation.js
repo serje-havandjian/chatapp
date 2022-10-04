@@ -72,7 +72,7 @@ function Conversation({user}){
   }, [chatroom.title, chatroom.id])
 
   useEffect(()=>{
-      fetch(`/conversations/${params.id}`)
+      fetch(`https://chat-app-project-2.herokuapp.com/conversations/${params.id}`)
       .then(r => {
         if(r.ok){
           r.json().then(data =>{
@@ -131,7 +131,7 @@ function Conversation({user}){
   };
 
   function handleDeleteConversation(){
-    fetch(`/conversations/${params.id}`, {
+    fetch(`https://chat-app-project-2.herokuapp.com/conversations/${params.id}`, {
       method: "DELETE"
     })
     navigate(`/chatroom`)

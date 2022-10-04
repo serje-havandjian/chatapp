@@ -13,7 +13,7 @@ function Login({setUser}){
 
     function handleSubmit(e) {
         e.preventDefault();
-        fetch("/login", {
+        fetch("https://chat-app-project-2.herokuapp.com/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
