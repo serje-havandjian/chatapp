@@ -21,25 +21,22 @@ function App() {
   }, []);
 
 
-  console.log(user)
-
- 
 
   return(
     <>
     {user ? (
     <Router>
           <Routes>
-            <Route path ="/chatroom" element={<Chatroom user={user} setUser={setUser} />} /> 
-            <Route path="/Conversations/:id" element={<Conversation user={user} />} />
+            <Route exact path ="/" element={<Chatroom user={user} setUser={setUser} />} /> 
+            <Route exact path="/Conversations/:id" element={<Conversation user={user} />} />
           </Routes>
        
       </Router>
       ) : (
         <Router>
           <Routes>
-            <Route path="/" element={<SignUp />} />
-            <Route path="/login" element={<Login setUser={setUser} />}>
+            <Route exact path="/login" element={<Login setUser={setUser} />}>
+            <Route exact path="/signup" element={<SignUp />} />
             </Route>
           </Routes>
         </Router>
