@@ -4,6 +4,8 @@ Rails.application.configure do
 
    
   config.action_cable.url = "ws://localhost:3000/cable"
+
+  config.assets.compile = false
   
   # Settings specified here will take precedence over those in config/application.rb.
 
