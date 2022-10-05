@@ -47,7 +47,7 @@ function Chatroom({user, setUser}){
   })
 
    async function handleSetConversation(e){
-    const getFetch = await fetch(`/conversations/${e.target.value}`).then(response => response.json())
+    const getFetch = await fetch(`/https://chat-app-project-2.herokuapp.com/conversations/${e.target.value}`).then(response => response.json())
 
     let showConversation = getFetch.messages.map((message)=>{
       return message.content
@@ -89,7 +89,7 @@ function Chatroom({user, setUser}){
      <div className="cardGroup" > 
        <br></br>
        <div class="ui raised link card">
-         <a class= "ui card" href={`conversations/${chatroom.id}`}>
+         <a class= "ui card" href={`https://chat-app-project-2.herokuapp.com/conversations/${chatroom.id}`}>
           <Card fluid color="blue">
             <Card.Content>
               <Card.Header>{chatroom.title} </Card.Header>
