@@ -21,7 +21,7 @@ function App() {
     });
   }, []);
 
-  console.log(user)
+  console.log(user, "USER HERE")
 
 
   return(
