@@ -47,7 +47,7 @@ function Chatroom({user, setUser}){
   })
 
    async function handleSetConversation(e){
-    const getFetch = await fetch(`/https://chat-app-project-2.herokuapp.com/conversations/${e.target.value}`).then(response => response.json())
+    const getFetch = await fetch(`/https://chat-app-project-2.herokuapp.com/ConversationRooms/${e.target.value}`).then(response => response.json())
 
     let showConversation = getFetch.messages.map((message)=>{
       return message.content
