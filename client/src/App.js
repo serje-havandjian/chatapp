@@ -5,6 +5,7 @@ import Chatroom from "./Chatroom";
 import SignUp from "./SignUp";
 import Login from "./Login";
 import Conversation from "./Conversation";
+import Home from "./Home";
 
 function App() {
 
@@ -28,7 +29,9 @@ function App() {
     {user ? (
     <Router>
           <Routes>
-            <Route exact path ="/" element={<Chatroom user={user} setUser={setUser} />} /> 
+            <Route path ="/" element={<Home setUser={setUser} user={user} />}>
+            </Route>
+            <Route path ="/chatroom" element={<Chatroom user={user} setUser={setUser} />} /> 
             <Route path="/conversations/:id" element={<Conversation user={user} />} />
           </Routes>
        
@@ -36,8 +39,9 @@ function App() {
       ) : (
         <Router>
           <Routes>
-            <Route exact path="/" element={<SignUp />} />
-            <Route exact path="/login" element={<Login setUser={setUser} />}>
+            <Route path ="/" element={<Home setUser={setUser} user={user} />}></Route>
+            <Route path="/SignUp" element={<SignUp />} />
+            <Route path="/login" element={<Login setUser={setUser} />}>
             </Route>
           </Routes>
         </Router>
