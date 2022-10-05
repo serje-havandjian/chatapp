@@ -11,7 +11,7 @@ Bundler.require(*Rails.groups)
 module Chatapp
   class Application < Rails::Application
   
-    config.action_cable.mount_path = '/websocket'
+    config.action_cable.mount_path = 'https://chat-app-project-2.herokuapp.com/websocket'
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
     
