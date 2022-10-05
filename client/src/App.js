@@ -13,7 +13,7 @@ function App() {
   const [ user, setUser ] = useState(null);
 
   useEffect(() => {
-    fetch("https://chat-app-project-2.herokuapp.com/me").then((r) => {
+    fetch("/me").then((r) => {
       if (r.ok) {
         r.json().then((user) => setUser(user));
       }
@@ -27,7 +27,7 @@ function App() {
     {user ? (
     <Router>
           <Routes>
-            <Route path ="/" element={<Chatroom user={user} setUser={setUser} />} /> 
+            <Route exact path ="/" element={<Chatroom user={user} setUser={setUser} />} /> 
             <Route path="/conversations/:id" element={<Conversation user={user} />} />
           </Routes>
        
@@ -35,8 +35,8 @@ function App() {
       ) : (
         <Router>
           <Routes>
-            <Route path="/" element={<SignUp />} />
-            <Route path="/login" element={<Login setUser={setUser} />}>
+            <Route exact path="/" element={<SignUp />} />
+            <Route exact path="/login" element={<Login setUser={setUser} />}>
             </Route>
           </Routes>
         </Router>
