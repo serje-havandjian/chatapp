@@ -4,7 +4,7 @@ import './App.css';
 import Chatroom from "./Chatroom";
 import SignUp from "./SignUp";
 import Login from "./Login";
-import Conversation from "./Conversation";
+import ConversationRooms from "./ConversationRooms";
 import Home from "./Home";
 
 function App() {
@@ -31,7 +31,7 @@ function App() {
           <Routes>
             {/* <Route element={<Home setUser={setUser} user={user} />}></Route> */}
             <Route path ="/chatroom" element={<Chatroom user={user} setUser={setUser} />} /> 
-            <Route path="/conversations/:id" element={<Conversation user={user} />} />
+            <Route path="/conversations/:id" element={<ConversationRooms user={user} />} />
           </Routes>
        
       </Router>

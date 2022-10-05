@@ -29,7 +29,7 @@ function reducer(state, action) {
   }
 }
 
-function Conversation({user}){
+function ConversationRooms({user}){
 
   const navigate = useNavigate()
 
@@ -169,7 +169,7 @@ function Conversation({user}){
   )
 }
 
-export default Conversation
+export default ConversationRooms
 
 // function Conversation({conversation, user, newMessage, setNewMessage, setConversation, chatroomId}){
 
