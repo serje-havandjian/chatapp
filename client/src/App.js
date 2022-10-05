@@ -31,7 +31,7 @@ function App() {
           <Routes>
             {/* <Route element={<Home setUser={setUser} user={user} />}></Route> */}
             <Route path ="/chatroom" element={<Chatroom user={user} setUser={setUser} />} /> 
-            <Route path="/conversations/:id" element={<ConversationRooms user={user} />} />
+            <Route path="/ConversationRooms/:id" element={<ConversationRooms user={user} />} />
           </Routes>
        
       </Router>
