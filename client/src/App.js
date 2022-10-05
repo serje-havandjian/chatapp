@@ -29,8 +29,7 @@ function App() {
     {user ? (
     <Router>
           <Routes>
-            <Route element={<Home setUser={setUser} user={user} />}>
-            </Route>
+            {/* <Route element={<Home setUser={setUser} user={user} />}></Route> */}
             <Route path ="/chatroom" element={<Chatroom user={user} setUser={setUser} />} /> 
             <Route path="/conversations/:id" element={<Conversation user={user} />} />
           </Routes>
@@ -39,10 +38,10 @@ function App() {
       ) : (
         <Router>
           <Routes>
-            <Route element={<Home setUser={setUser} user={user} />}></Route>
-            <Route path="/SignUp" element={<SignUp />} />
-            <Route path="/login" element={<Login setUser={setUser} />}>
-            </Route>
+            {/* <Route element={<Home setUser={setUser} user={user} />}></Route> */}
+            <Route path="/" element={<SignUp />} />
+            {/* <Route path="/login" element={<Login setUser={setUser} />}>
+            </Route> */}
           </Routes>
         </Router>
       )
