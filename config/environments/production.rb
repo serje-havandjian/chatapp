@@ -1,10 +1,6 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-
-  config.assets.compile = false
-  config.action_cable.url = "ws://localhost:3000/cable"
-
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
