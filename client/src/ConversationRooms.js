@@ -51,7 +51,7 @@ function ConversationRooms({user}){
       if(chatConnection.consumer){
         chatConnection.unsubscribe()
       }
-      const consumer = Cable.createConsumer(`ws://localhost:3000/cable`)
+      const consumer = Cable.createConsumer(`wss:https://chat-app-project-2.herokuapp.com/cable`)
       const subscription = consumer.subscriptions.create(
         {
           channel: "ConversationChannel",
