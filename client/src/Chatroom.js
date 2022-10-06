@@ -89,7 +89,7 @@ function Chatroom({user, setUser}){
      <div className="cardGroup" > 
        <br></br>
        <div class="ui raised link card">
-         <a class= "ui card" href={`https://chat-app-project-2.herokuapp.com/conversations/${chatroom.id}`}>
+         <a class= "ui card" href={`https://chat-app-project-2.herokuapp.com/ConversationRooms/${chatroom.id}`}>
           <Card fluid color="blue">
             <Card.Content>
               <Card.Header>{chatroom.title} </Card.Header>
