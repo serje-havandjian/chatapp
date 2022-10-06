@@ -30,7 +30,7 @@ function App() {
     <Router>
           <Routes>
             {/* <Route element={<Home setUser={setUser} user={user} />}></Route> */}
-            <Route path ="/" element={<Chatroom user={user} setUser={setUser} />} /> 
+            <Route path ="/chatroom" element={<Chatroom user={user} setUser={setUser} />} /> 
             <Route path="/ConversationRooms/:id" element={<ConversationRooms user={user} />} />
           </Routes>
        
@@ -40,7 +40,7 @@ function App() {
           <Routes>
             {/* <Route element={<Home setUser={setUser} user={user} />}></Route> */}
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/" element={<Login setUser={setUser} />}>
+            <Route path="/login" element={<Login setUser={setUser} />}>
             </Route>
           </Routes>
         </Router>
