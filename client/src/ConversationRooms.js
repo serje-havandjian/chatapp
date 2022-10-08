@@ -48,8 +48,7 @@ function ConversationRooms({user}){
   useEffect(()=>{
     function createSocket(){
 
-      console.log(chatConnection, "CHAT CONNECTION HERE")
-      console.log(chatConnection.consumer, "CONSUMER HERE HERE")
+     
       
       // if(chatConnection.consumer){
       //   chatConnection.unsubscribe()
@@ -57,7 +56,7 @@ function ConversationRooms({user}){
 
       const consumer = Cable.createConsumer(`wss://chat-app-project-2.herokuapp.com/cable`)
      
-      console.log(consumer, "CONSUMER HERE")
+     
       
       const subscription = consumer.subscriptions.create(
         {
@@ -72,7 +71,7 @@ function ConversationRooms({user}){
       )
       dispatch({ type: "chatConnection", payload: subscription})
 
-      console.log(subscription, "SUBCSCRIPTION HERE")
+     
     }
 
     
