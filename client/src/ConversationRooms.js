@@ -50,9 +50,9 @@ function ConversationRooms({user}){
 
      
       
-      // if(chatConnection.consumer){
-      //   chatConnection.unsubscribe()
-      // }
+      if(chatConnection.consumer){
+        chatConnection.unsubscribe()
+      }
 
       const consumer = Cable.createConsumer(`wss://chat-app-project-2.herokuapp.com/cable`)
      
