@@ -3,7 +3,7 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
 
   config.assets.compile = false
-  config.action_cable.url = "https://chat-app-project-2.herokuapp.com/cable"
+  config.action_cable.url = "wss://chat-app-project-2.herokuapp.com/cable"
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded any time
