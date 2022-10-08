@@ -47,11 +47,16 @@ function ConversationRooms({user}){
 
   useEffect(()=>{
     function createSocket(){
+
+      console.log(chatConnection, "CHAT CONNECTION HERE")
       
       if(chatConnection.consumer){
         chatConnection.unsubscribe()
       }
       const consumer = Cable.createConsumer(`wss://chat-app-project-2.herokuapp.com/cable`)
+     
+      console.log(consumer, "CONSUMER HERE")
+      
       const subscription = consumer.subscriptions.create(
         {
           channel: "ConversationChannel",
@@ -64,12 +69,16 @@ function ConversationRooms({user}){
         }
       )
       dispatch({ type: "chatConnection", payload: subscription})
+
+      console.log(subscription, "SUBCSCRIPTION HERE")
     }
+
+    
     
     if (chatroom.title){
       createSocket()
     }
-  }, [chatroom.title, chatroom.id])
+  }, [chatroom.title, chatroom.id, chatConnection])
 
   useEffect(()=>{
       fetch(`https://chat-app-project-2.herokuapp.com/conversations/${params.id}`)
