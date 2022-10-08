@@ -49,10 +49,12 @@ function ConversationRooms({user}){
     function createSocket(){
 
       console.log(chatConnection, "CHAT CONNECTION HERE")
+      console.log(chatConnection.consumer, "CONSUMER HERE HERE")
       
-      if(chatConnection.consumer){
-        chatConnection.unsubscribe()
-      }
+      // if(chatConnection.consumer){
+      //   chatConnection.unsubscribe()
+      // }
+
       const consumer = Cable.createConsumer(`wss://chat-app-project-2.herokuapp.com/cable`)
      
       console.log(consumer, "CONSUMER HERE")
