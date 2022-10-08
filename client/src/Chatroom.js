@@ -159,6 +159,7 @@ function Chatroom({user, setUser}){
   return (
     <div >
       <header className="homePageStyle">
+        <h1>Welcome (user name will go here)</h1>
         <div>
         <Button color="youtube" className="logoutButton" onClick={handleLogoutClick}>
           Logout
