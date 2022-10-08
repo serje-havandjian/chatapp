@@ -134,11 +134,11 @@ function ConversationRooms({user}){
     fetch(`https://chat-app-project-2.herokuapp.com/conversations/${params.id}`, {
       method: "DELETE"
     })
-    navigate(`/chatroom`)
+    navigate(`/`)
   }
 
   function handleGoBack(){
-    navigate(`/chatroom`)
+    navigate(`/`)
   }
 
   
