@@ -6,5 +6,5 @@ test:
 
 production:
   adapter: redis
-  url: redis://:p4e40c456c923b9ac8a06f415d8d9a68a25d445564646245c240607e86dc49eea@ec2-54-82-228-50.compute-1.amazonaws.com:25529
+  url: redis://:p4e40c456c923b9ac8a06f415d8d9a68a25d445564646245c240607e86dc49eea@ec2-54-82-228-50.compute-1.amazonaws.com:25529/
   # channel_prefix: Chatapp_production

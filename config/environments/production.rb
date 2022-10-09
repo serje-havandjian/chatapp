@@ -9,7 +9,7 @@ Rails.application.configure do
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = `/cable`
   config.action_cable.url = "wss://chat-app-project-2.herokuapp.com/cable"
-  # config.action_cable.allowed_request_origins = [ "https://chat-app-project-2.herokuapp.com", /http:\/\/chat-app-project-2.herokuapp.com.*/ ]
+  config.action_cable.allowed_request_origins = [ "https://chat-app-project-2.herokuapp.com", /http:\/\/chat-app-project-2.herokuapp.com.*/ ]
 
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
