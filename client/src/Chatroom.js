@@ -33,6 +33,8 @@ function Chatroom({user, setUser}){
     .then(result => setChatrooms(result))
   },[])
 
+  const userName = user.username
+
 
 
   const userOptions = allUsers.map((user)=>{
@@ -159,7 +161,7 @@ function Chatroom({user, setUser}){
   return (
     <div >
       <header className="homePageStyle">
-        <h1>Welcome (user name will go here)</h1>
+        <h1>Welcome {userName}! </h1>
         <div>
         <Button color="youtube" className="logoutButton" onClick={handleLogoutClick}>
           Logout

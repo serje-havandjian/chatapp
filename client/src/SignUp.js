@@ -98,7 +98,7 @@ function SignUp({setUser}){
         </Segment>
         </Form>
         <Message>
-          Already have an account? <a href="https://chat-app-project-2.herokuapp.com/login">Login here.</a>
+          Already have an account? <a href="/login">Login here.</a>
         </Message>
       </Grid.Column>
     </Grid >
