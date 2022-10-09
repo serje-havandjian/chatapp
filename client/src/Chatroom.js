@@ -152,7 +152,7 @@ function Chatroom({user, setUser}){
       body: JSON.stringify(newConversationObject)
     })
     .then(response => response.json())
-    .then(response => navigate(`/conversations/${response.id}`))
+    .then(response => navigate(`/ConversationRooms/${response.id}`))
   }
 
 
