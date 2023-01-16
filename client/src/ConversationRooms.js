@@ -30,12 +30,10 @@ function reducer(state, action) {
 }
 
 function ConversationRooms({user}){
-
   const navigate = useNavigate()
-
   const [message, setMessage] = useState([])
-  
   const params = useParams()
+  const { chatroom, chatConnection } = state
 
   const [state, dispatch] = useReducer(reducer, {
     chatroom: {},
@@ -43,18 +41,12 @@ function ConversationRooms({user}){
     chatConnection: {}
   })
   
-  const { chatroom, chatConnection } = state
-
   useEffect(()=>{
     function createSocket(){
       if(chatConnection.consumer){
         chatConnection.unsubscribe()
       }
-
       const consumer = Cable.createConsumer(`wss://chat-app-project-2.herokuapp.com/cable`)
-     
-    
-      
       const subscription = consumer.subscriptions.create(
         {
           channel: "ConversationChannel",
@@ -67,7 +59,6 @@ function ConversationRooms({user}){
         }
       )
       dispatch({ type: "chatConnection", payload: subscription})
-
     }
 
     
