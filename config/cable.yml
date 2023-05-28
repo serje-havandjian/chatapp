@@ -1,14 +1,14 @@
-# config/cable.yml
+# # config/cable.yml
 
-development:
-  adapter: redis
-  url: redis://ec2-3-223-100-250.compute-1.amazonaws.com:28860/0
-  channel_prefix: my_app_development
+# development:
+#   adapter: redis
+#   url: rediss://:p73b98cd692766ed5a2e60ad744d7df897be3d4561f2df0f638cd7ce3e27e02a6@ec2-3-223-100-250.compute-1.amazonaws.com:12950
+#   channel_prefix: my_app_development
 
-test:
-  adapter: async
+# test:
+#   adapter: async
 
-production:
-  adapter: redis
-  url: redis://ec2-3-223-100-250.compute-1.amazonaws.com:28860/0
-  channel_prefix: my_app_production
+# production:
+#   adapter: redis
+#   url: rediss://:p73b98cd692766ed5a2e60ad744d7df897be3d4561f2df0f638cd7ce3e27e02a6@ec2-3-223-100-250.compute-1.amazonaws.com:12950
+#   channel_prefix: my_app_production
