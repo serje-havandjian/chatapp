@@ -101,6 +101,7 @@ function ConversationRooms({user}){
   }
   
   function createMessage(e){
+    console.log(e.target.value)
     e.preventDefault()
     handleMessageNew(message)
     setMessage(() => "")
