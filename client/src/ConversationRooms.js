@@ -90,11 +90,14 @@ function ConversationRooms({user}){
 
 
   function handleMessageNew(message) {
+    console.log(message)
     chatConnection.send({ message: { content: message, conversation_id: chatroom.id } })
   }
 
   function handleNewMessageContent(e){
+    console.log(e.target.value)
     setMessage(e.target.value)
+    console.log(message)
   }
   
   function createMessage(e){
